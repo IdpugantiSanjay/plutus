@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E8390651-1FF3-4EA2-B427-FF30238B9F58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Infrastructure", "Plutus.Infrastructure\Plutus.Infrastructure.csproj", "{3DCCB300-156B-4293-82A7-9B371A7DC847}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Application", "Plutus.Application\Plutus.Application.csproj", "{0FE5BF4C-8AF7-49C1-9F82-97155752B873}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Domain", "Plutus.Domain\Plutus.Domain.csproj", "{FA1F76F7-E979-4500-95FD-9935B4C6C796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Api", "Plutus.Api\Plutus.Api.csproj", "{E6FC083E-7120-40A3-A817-DAC6B006D43B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Domain.UnitTests", "Plutus.Domain.UnitTests\Plutus.Domain.UnitTests.csproj", "{1982BED5-C9FB-4942-9AF1-962B0996E15E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Application.UnitTests", "Plutus.Application.UnitTests\Plutus.Application.UnitTests.csproj", "{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DCCB300-156B-4293-82A7-9B371A7DC847} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{0FE5BF4C-8AF7-49C1-9F82-97155752B873} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{FA1F76F7-E979-4500-95FD-9935B4C6C796} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{E6FC083E-7120-40A3-A817-DAC6B006D43B} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{1982BED5-C9FB-4942-9AF1-962B0996E15E} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
+		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DCCB300-156B-4293-82A7-9B371A7DC847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCCB300-156B-4293-82A7-9B371A7DC847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCCB300-156B-4293-82A7-9B371A7DC847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCCB300-156B-4293-82A7-9B371A7DC847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE5BF4C-8AF7-49C1-9F82-97155752B873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE5BF4C-8AF7-49C1-9F82-97155752B873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE5BF4C-8AF7-49C1-9F82-97155752B873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE5BF4C-8AF7-49C1-9F82-97155752B873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA1F76F7-E979-4500-95FD-9935B4C6C796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA1F76F7-E979-4500-95FD-9935B4C6C796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA1F76F7-E979-4500-95FD-9935B4C6C796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA1F76F7-E979-4500-95FD-9935B4C6C796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6FC083E-7120-40A3-A817-DAC6B006D43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6FC083E-7120-40A3-A817-DAC6B006D43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6FC083E-7120-40A3-A817-DAC6B006D43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6FC083E-7120-40A3-A817-DAC6B006D43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1982BED5-C9FB-4942-9AF1-962B0996E15E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1982BED5-C9FB-4942-9AF1-962B0996E15E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1982BED5-C9FB-4942-9AF1-962B0996E15E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1982BED5-C9FB-4942-9AF1-962B0996E15E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

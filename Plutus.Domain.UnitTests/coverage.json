@@ -1,0 +1,630 @@
+{
+  "Plutus.Domain.dll": {
+    "/home/sanjay/Work/plutus/Plutus.Domain/Category.cs": {
+      "Plutus.Domain.Category": {
+        "System.Guid Plutus.Domain.Category::get_Id()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "System.String Plutus.Domain.Category::get_Name()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.TransactionType Plutus.Domain.Category::get_TransactionType()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/Transaction.cs": {
+      "Plutus.Domain.Transaction": {
+        "Plutus.Domain.ValueObjects.Amount Plutus.Domain.Transaction::get_Amount()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.ValueObjects.Username Plutus.Domain.Transaction::get_Username()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.ValueObjects.TransactionDateTime Plutus.Domain.Transaction::get_DateTime()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.ValueObjects.TransactionDescription Plutus.Domain.Transaction::get_Description()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        },
+        "System.Guid Plutus.Domain.Transaction::get_CategoryId()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.Guid Plutus.Domain.Transaction::get_Id()": {
+          "Lines": {
+            "16": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.TransactionType Plutus.Domain.Transaction::get_TransactionType()": {
+          "Lines": {
+            "17": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Transaction::Update(Plutus.Domain.Transaction)": {
+          "Lines": {
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "43": 0,
+            "44": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Transaction::MakeInActive()": {
+          "Lines": {
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime Plutus.Domain.Transaction::get_LastModifiedUtc()": {
+          "Lines": {
+            "53": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime Plutus.Domain.Transaction::get_CreatedOnUtc()": {
+          "Lines": {
+            "54": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean Plutus.Domain.Transaction::get_InActive()": {
+          "Lines": {
+            "56": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Transaction::.ctor()": {
+          "Lines": {
+            "19": 0,
+            "20": 0,
+            "22": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Transaction::.ctor(System.Guid,Plutus.Domain.TransactionType,Plutus.Domain.ValueObjects.Username,Plutus.Domain.ValueObjects.Amount,Plutus.Domain.ValueObjects.TransactionDateTime,System.Guid,Plutus.Domain.ValueObjects.TransactionDescription)": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/User.cs": {
+      "Plutus.Domain.User": {
+        "Plutus.Domain.ValueObjects.Username Plutus.Domain.User::get_Username()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.ValueObjects.Email Plutus.Domain.User::get_Email()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String Plutus.Domain.User::get_FirstName()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.String Plutus.Domain.User::get_LastName()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        },
+        "Plutus.Domain.ValueObjects.Password Plutus.Domain.User::get_Password()": {
+          "Lines": {
+            "13": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime Plutus.Domain.User::get_LastModifiedUtc()": {
+          "Lines": {
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime Plutus.Domain.User::get_CreatedOnUtc()": {
+          "Lines": {
+            "31": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean Plutus.Domain.User::get_InActive()": {
+          "Lines": {
+            "32": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.User::.ctor()": {
+          "Lines": {
+            "15": 0,
+            "16": 0,
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.User::.ctor(Plutus.Domain.ValueObjects.Username,Plutus.Domain.ValueObjects.Email,System.String,System.String,Plutus.Domain.ValueObjects.Password)": {
+          "Lines": {
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/ValueObjects/Amount.cs": {
+      "Plutus.Domain.ValueObjects.Amount": {
+        "System.Void Plutus.Domain.ValueObjects.Amount::Validate()": {
+          "Lines": {
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0
+          },
+          "Branches": [
+            {
+              "Line": 14,
+              "Offset": 25,
+              "EndOffset": 27,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 14,
+              "Offset": 25,
+              "EndOffset": 38,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Plutus.Domain.ValueObjects.Amount Plutus.Domain.ValueObjects.Amount::op_Implicit(System.Decimal)": {
+          "Lines": {
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.Amount::.ctor()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.AmountValidator": {
+        "System.Void Plutus.Domain.ValueObjects.AmountValidator::.ctor()": {
+          "Lines": {
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.InvalidAmountException": {
+        "System.Void Plutus.Domain.ValueObjects.InvalidAmountException::.ctor(System.String)": {
+          "Lines": {
+            "31": 0,
+            "32": 0,
+            "34": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/ValueObjects/Email.cs": {
+      "Plutus.Domain.ValueObjects.Email": {
+        "System.Void Plutus.Domain.ValueObjects.Email::Validate()": {
+          "Lines": {
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0
+          },
+          "Branches": [
+            {
+              "Line": 17,
+              "Offset": 23,
+              "EndOffset": 25,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 17,
+              "Offset": 23,
+              "EndOffset": 31,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Plutus.Domain.ValueObjects.Email Plutus.Domain.ValueObjects.Email::op_Implicit(System.String)": {
+          "Lines": {
+            "22": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.Email::.ctor()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.EmailValidator": {
+        "System.Void Plutus.Domain.ValueObjects.EmailValidator::.ctor()": {
+          "Lines": {
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/ValueObjects/Password.cs": {
+      "Plutus.Domain.ValueObjects.Password": {
+        "System.Void Plutus.Domain.ValueObjects.Password::Validate()": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": [
+            {
+              "Line": 15,
+              "Offset": 23,
+              "EndOffset": 25,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 23,
+              "EndOffset": 31,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Plutus.Domain.ValueObjects.Password Plutus.Domain.ValueObjects.Password::op_Implicit(System.String)": {
+          "Lines": {
+            "19": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.Password::.ctor()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.PasswordValidator": {
+        "System.Boolean Plutus.Domain.ValueObjects.PasswordValidator::ContainsCapitalLetter(System.String)": {
+          "Lines": {
+            "34": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean Plutus.Domain.ValueObjects.PasswordValidator::ContainsSpecialCharacter(System.String)": {
+          "Lines": {
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.PasswordValidator::.ctor()": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/ValueObjects/TransactionDateTime.cs": {
+      "Plutus.Domain.ValueObjects.TransactionDateTime": {
+        "System.Void Plutus.Domain.ValueObjects.TransactionDateTime::Validate()": {
+          "Lines": {
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0
+          },
+          "Branches": [
+            {
+              "Line": 13,
+              "Offset": 23,
+              "EndOffset": 25,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 13,
+              "Offset": 23,
+              "EndOffset": 36,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Plutus.Domain.ValueObjects.TransactionDateTime Plutus.Domain.ValueObjects.TransactionDateTime::op_Implicit(System.DateTime)": {
+          "Lines": {
+            "17": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.TransactionDateTime::.ctor()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.TransactionDateTimeValidator": {
+        "System.Void Plutus.Domain.ValueObjects.TransactionDateTimeValidator::.ctor()": {
+          "Lines": {
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/ValueObjects/TransactionDescription.cs": {
+      "Plutus.Domain.ValueObjects.TransactionDescription": {
+        "System.Void Plutus.Domain.ValueObjects.TransactionDescription::Validate()": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": [
+            {
+              "Line": 15,
+              "Offset": 25,
+              "EndOffset": 27,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 25,
+              "EndOffset": 38,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Plutus.Domain.ValueObjects.TransactionDescription Plutus.Domain.ValueObjects.TransactionDescription::op_Implicit(System.String)": {
+          "Lines": {
+            "19": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.TransactionDescription::.ctor()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.TransactionDescriptionValidator": {
+        "System.Void Plutus.Domain.ValueObjects.TransactionDescriptionValidator::.ctor()": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/ValueObjects/Username.cs": {
+      "Plutus.Domain.ValueObjects.Username": {
+        "System.Void Plutus.Domain.ValueObjects.Username::Validate()": {
+          "Lines": {
+            "17": 3,
+            "18": 3,
+            "19": 3,
+            "20": 2,
+            "21": 1
+          },
+          "Branches": [
+            {
+              "Line": 19,
+              "Offset": 25,
+              "EndOffset": 27,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 2
+            },
+            {
+              "Line": 19,
+              "Offset": 25,
+              "EndOffset": 54,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        },
+        "Plutus.Domain.ValueObjects.Username Plutus.Domain.ValueObjects.Username::op_Implicit(System.String)": {
+          "Lines": {
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.Username::.ctor()": {
+          "Lines": {
+            "10": 3
+          },
+          "Branches": []
+        }
+      },
+      "Plutus.Domain.ValueObjects.UsernameValidator": {
+        "System.Boolean Plutus.Domain.ValueObjects.UsernameValidator::BeLowerCase(System.String)": {
+          "Lines": {
+            "40": 3
+          },
+          "Branches": []
+        },
+        "System.Boolean Plutus.Domain.ValueObjects.UsernameValidator::NotContainSpace(System.String)": {
+          "Lines": {
+            "42": 3
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.ValueObjects.UsernameValidator::.ctor()": {
+          "Lines": {
+            "35": 3,
+            "36": 3,
+            "37": 3,
+            "38": 3
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/Exceptions/InvalidEmailException.cs": {
+      "Plutus.Domain.Exceptions.InvalidEmailException": {
+        "System.String Plutus.Domain.Exceptions.InvalidEmailException::get_Field()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Exceptions.InvalidEmailException::.ctor()": {
+          "Lines": {
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "13": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/Exceptions/InvalidPasswordException.cs": {
+      "Plutus.Domain.Exceptions.InvalidPasswordException": {
+        "System.String Plutus.Domain.Exceptions.InvalidPasswordException::get_Field()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Exceptions.InvalidPasswordException::.ctor()": {
+          "Lines": {
+            "12": 0,
+            "13": 0,
+            "14": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/sanjay/Work/plutus/Plutus.Domain/Exceptions/InvalidUsernameException.cs": {
+      "Plutus.Domain.Exceptions.InvalidUsernameException": {
+        "System.String Plutus.Domain.Exceptions.InvalidUsernameException::get_Field()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "System.Void Plutus.Domain.Exceptions.InvalidUsernameException::.ctor(System.String)": {
+          "Lines": {
+            "9": 2,
+            "10": 2,
+            "11": 2,
+            "12": 2
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}

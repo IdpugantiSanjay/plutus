@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: plutus-ingress
+  labels:
+      name: plutus-ingress
+spec:
+  rules:
+  - host: <Host>
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            serviceName: api-cluster-ip-service
+            servicePort: 5000
