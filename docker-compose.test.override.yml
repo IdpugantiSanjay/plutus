@@ -6,6 +6,7 @@ services:
     image: mcr.microsoft.com/dotnet/sdk:5.0
     volumes: 
       - .:/code
+      - ./TestResults:/var/temp
     working_dir: /code
     environment:
       - PGPASSWORD=sanjay_11
@@ -15,9 +16,9 @@ services:
     command: >
       bash -c "
         chmod +x scripts/wait-for-it.sh && ./scripts/wait-for-it.sh database-server:5432
-        dotnet test ./Plutus.Api.IntegrationTests/Plutus.Api.IntegrationTests.csproj
+        dotnet test ./Plutus.Api.IntegrationTests/Plutus.Api.IntegrationTests.csproj --logger trx --results-directory /var/temp /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=TestResults/
       "
     depends_on:
       - database-server
 
-#        tail -F anything
+#        
