@@ -29,14 +29,11 @@ jobs:
       - name: Run Integration Tests
         run: docker-compose -f docker-compose.yml -f docker-compose.test.override.yml up --build --abort-on-container-exit integration-tests
         
-      - name: Checking Directory
-        run:  ls && ls /code
-        
       - name: Upload Test results
         uses: actions/upload-artifact@v2
         with:
           name: dotnet-results
-          path: /code/TestResults
+          path: TestResults
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
       
