@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  integration-tests:
+    container_name: plutus-integration-test
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    volumes: 
+      - .:/code
+    working_dir: /code
+    environment:
+      - PGPASSWORD=sanjay_11
+      - PGUSER=sanjay
+      - PGDATABASE=plutus
+      - PGHOST=plutus-database
+    command: >
+      bash -c "
+        chmod +x scripts/wait-for-it.sh && ./scripts/wait-for-it.sh database-server:5432
+        dotnet test ./Plutus.Api.IntegrationTests/Plutus.Api.IntegrationTests.csproj
+      "
+    depends_on:
+      - database-server
+
+#        tail -F anything
