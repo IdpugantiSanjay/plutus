@@ -28,4 +28,12 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run Integration Tests
         run: docker-compose -f docker-compose.yml -f docker-compose.test.override.yml up --build --abort-on-container-exit integration-tests
+        
+      - name: Upload Test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: dotnet-results-${{ matrix.dotnet-version }}
+          path: TestResults
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
       
