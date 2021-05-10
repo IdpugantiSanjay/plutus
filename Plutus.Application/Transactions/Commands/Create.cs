@@ -2,19 +2,25 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Plutus.Application.Repositories;
 using Plutus.Domain;
+using Plutus.Domain.Enums;
+using Plutus.Domain.ValueObjects;
+
 
 namespace Plutus.Application.Transactions.Commands
 {
     public static class CreateTransaction
     {
         public record Request(decimal Amount, DateTime DateTime, string Description, Guid CategoryId,
-            string Username, TransactionType TransactionType,
-            bool IsCredit = false) : IRequest<Response>;
+            string Username, TransactionType TransactionType) : IRequest<Response>;
 
-        public record Response(Guid Id);
+        public class Response
+        {
+            public Guid Id { get; init; }
+        }
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -41,10 +47,23 @@ namespace Plutus.Application.Transactions.Commands
                 );
 
                 var addedTransaction = await _transactionRepository.AddAsync(transaction);
-
                 await _transactionRepository.SaveChangesAsync();
+                var response =_mapper.Map<Response>(addedTransaction);
+                return response;
+            }
+        }
 
-                return _mapper.Map<Response>(addedTransaction);
+
+        public class Validator : AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(r => r.Amount).SetValidator(a => Amount.Validator);
+                RuleFor(r => r.DateTime).SetValidator(a => TransactionDateTime.Validator);
+                RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
+                RuleFor(r => r.Username).SetValidator(a => Username.Validator);
+                RuleFor(r => r.CategoryId).NotEmpty();
+                // RuleFor(r => r.TransactionType).NotEmpty();
             }
         }
     }

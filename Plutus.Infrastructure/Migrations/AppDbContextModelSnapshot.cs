@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Plutus.Infrastructure;
 
 namespace Plutus.Infrastructure.Migrations
@@ -16,24 +16,67 @@ namespace Plutus.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "6.0.0-preview.2.21154.2")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Plutus.Domain.Category", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.Property<int>("TransactionType")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                    b.HasKey("Id");
 
-                    b.HasKey("Name", "TransactionType");
+                    b.HasIndex("Name", "TransactionType")
+                        .IsUnique();
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e1476226-a820-41b1-b34b-ef10858dcdf2"),
+                            Name = "Food & Drinks",
+                            TransactionType = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("2b4a499d-f099-4609-b217-dab164ae1759"),
+                            Name = "Travel",
+                            TransactionType = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("780546af-ee40-4513-b2b8-b9f43f2b7aec"),
+                            Name = "Transfer",
+                            TransactionType = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("50ad9a4e-8eb0-4e34-9e4f-21433e671558"),
+                            Name = "Bills",
+                            TransactionType = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("8b4d2ee1-9cdf-4760-b0f9-7e5a543a3f97"),
+                            Name = "Salary",
+                            TransactionType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("6193fbce-a045-4ad6-8cf0-d11a0ea8cb7d"),
+                            Name = "Transfer",
+                            TransactionType = 1
+                        });
                 });
 
             modelBuilder.Entity("Plutus.Domain.Transaction", b =>
@@ -51,7 +94,7 @@ namespace Plutus.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOnUtc")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2021, 3, 28, 17, 36, 47, 504, DateTimeKind.Utc).AddTicks(7408));
+                        .HasDefaultValue(new DateTime(2021, 5, 9, 10, 11, 21, 84, DateTimeKind.Utc).AddTicks(1561));
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
@@ -71,9 +114,13 @@ namespace Plutus.Infrastructure.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("character varying(16)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("Username");
 
                     b.ToTable("Transaction");
                 });
@@ -87,7 +134,7 @@ namespace Plutus.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOnUtc")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2021, 3, 28, 17, 36, 47, 518, DateTimeKind.Utc).AddTicks(413));
+                        .HasDefaultValue(new DateTime(2021, 5, 9, 10, 11, 21, 136, DateTimeKind.Utc).AddTicks(3189));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -110,36 +157,60 @@ namespace Plutus.Infrastructure.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("Password");
+
                     b.HasKey("Username");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Username = "sanjay",
+                            CreatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sanjay11@outlook.com",
+                            FirstName = "Sanjay",
+                            InActive = false,
+                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Idpuganti",
+                            Password = "�f��G\n��.���@v�6�A��1�x��"
+                        });
+                });
+
+            modelBuilder.Entity("Plutus.Domain.Transaction", b =>
+                {
+                    b.HasOne("Plutus.Domain.Category", "Category")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Plutus.Domain.User", "User")
+                        .WithMany("Transactions")
+                        .HasForeignKey("Username")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Plutus.Domain.Category", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Plutus.Domain.User", b =>
                 {
-                    b.OwnsOne("Plutus.Domain.ValueObjects.Password", "Password", b1 =>
-                        {
-                            b1.Property<string>("Username")
-                                .HasColumnType("character varying(16)");
-
-                            b1.Property<string>("Value")
-                                .HasMaxLength(32)
-                                .HasColumnType("character varying(32)")
-                                .HasColumnName("Password");
-
-                            b1.HasKey("Username");
-
-                            b1.ToTable("User");
-
-                            b1.WithOwner()
-                                .HasForeignKey("Username");
-                        });
-
-                    b.Navigation("Password")
-                        .IsRequired();
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,7 @@ namespace Plutus.Application.UnitTests
         {
             var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             _context = new AppDbContext(options);
-            _context.Database.EnsureCreated();
+            // _context.Database.EnsureCreated();
         }
         
         public void Dispose()

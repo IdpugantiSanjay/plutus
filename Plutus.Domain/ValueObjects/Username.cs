@@ -7,7 +7,7 @@ namespace Plutus.Domain.ValueObjects
     
     public class Username: ValueOf<string, Username>
     {
-        private readonly UsernameValidator _validator = new();
+        public static readonly UsernameValidator Validator = new();
 
         /// <summary>
         /// 
@@ -15,7 +15,7 @@ namespace Plutus.Domain.ValueObjects
         /// <exception cref="InvalidUsernameException"></exception>
         protected override void Validate()
         {
-            var result = _validator.Validate(this);
+            var result = Validator.Validate(this);
             if (result.IsValid is false)
                  throw new InvalidUsernameException($"Invalid Username. value: {this.Value}, Username should not contain Capital letters");
         }
@@ -28,13 +28,16 @@ namespace Plutus.Domain.ValueObjects
         /// <exception cref="InvalidUsernameException"></exception>
         /// <returns></returns>
         public static implicit operator Username(string username) => From(username);
+        
+        public static implicit operator string(Username username) => username.Value;
+        
     }
 
-    internal class UsernameValidator : AbstractValidator<Username>
+    public class UsernameValidator : AbstractValidator<string>
     {
         public UsernameValidator()
         {
-            RuleFor(u => u.Value).MaximumLength(12).MinimumLength(3).Must(BeLowerCase).Must(NotContainSpace);
+            RuleFor(u => u).MaximumLength(12).MinimumLength(4).Must(BeLowerCase).Must(NotContainSpace).WithMessage("Invalid Username");
         }
 
         private bool BeLowerCase(string username) => username == username.ToLowerInvariant();

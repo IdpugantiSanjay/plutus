@@ -7,3 +7,4 @@ riderModule.iml
 /.minikube
 /.minikube/**/*
 /.minikube/**
+logs/

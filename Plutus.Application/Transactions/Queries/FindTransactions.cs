@@ -4,23 +4,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
+using Plutus.Application.Transactions.ViewModels.cs;
 using Plutus.Domain;
+using Plutus.Domain.Enums;
+using Plutus.Domain.ValueObjects;
 
 namespace Plutus.Application.Transactions.Queries
 {
     public static class FindTransactions
     {
-        public record Request(string Username, DateTime From, DateTime To, Guid CategoryId,
+        public record Request([FromRoute] string Username, DateTime From, DateTime To, Guid CategoryId,
             TransactionType TransactionType, string Description,
-            int Skip = 0, int Limit = 100) : IRequest<Response>;
+            int Skip = 0, int Limit = 100) : IRequest<IEnumerable<TransactionViewModel>>;
 
-        public record Response(List<ResponseItem> List);
-
-        public record ResponseItem(Guid Id, string Username, DateTime From, DateTime To, Category Category,
-            TransactionType TransactionType, string Description);
-
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, IEnumerable<TransactionViewModel>>
         {
             private readonly IMapper _mapper;
             private readonly ITransactionRepository _repository;
@@ -31,10 +30,11 @@ namespace Plutus.Application.Transactions.Queries
                 _repository = repository;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<TransactionViewModel>> Handle(Request request, CancellationToken cancellationToken)
             {
                 var transactions = await _repository.FindAsync(request);
-                return new Response(_mapper.Map<List<ResponseItem>>(transactions));
+                var vm = _mapper.Map<IEnumerable<TransactionViewModel>>(transactions);
+                return vm;
             }
         }
     }

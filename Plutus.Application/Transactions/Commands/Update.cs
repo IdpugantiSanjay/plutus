@@ -1,22 +1,22 @@
 using System;
-using System.ComponentModel.Design;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Plutus.Application.Repositories;
 using Plutus.Domain;
+using Plutus.Domain.Enums;
+using Plutus.Domain.ValueObjects;
 
 namespace Plutus.Application.Transactions.Commands
 {
     public static class UpdateTransaction
     {
-        public record Request(Guid TransactionId, decimal Amount, DateTime DateTime, string Description,
-            Guid CategoryId,
-            string Username, TransactionType TransactionType, bool IsCredit = false) : IRequest<Response>;
+        public record Request(Guid Id, decimal Amount, DateTime DateTime,
+            string Description, Guid CategoryId, string Username, TransactionType TransactionType) : IRequest<Response>;
 
         public record Response(Guid Id);
-
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -28,11 +28,12 @@ namespace Plutus.Application.Transactions.Commands
                 _transactionRepository = transactionRepository;
                 _mapper = mapper;
             }
-            
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                
                 Transaction updatedTransaction = new(
-                    request.TransactionId,
+                    request.Id,
                     request.TransactionType,
                     request.Username,
                     request.Amount,
@@ -40,15 +41,29 @@ namespace Plutus.Application.Transactions.Commands
                     request.CategoryId
                 );
 
-                var transactionInDb = await _transactionRepository.FindByIdAsync(request.TransactionId);
+                var transactionInDb = await _transactionRepository.FindByIdAsync(request.Id);
                 if (transactionInDb is null)
-                    throw new ArgumentException($"Invalid Transaction Id: {request.TransactionId}");
-                
+                    throw new ArgumentException($"Invalid Transaction Id: {request.Id}");
+
                 transactionInDb.Update(updatedTransaction);
                 _transactionRepository.Update(transactionInDb);
                 await _transactionRepository.SaveChangesAsync();
 
                 return _mapper.Map<Response>(transactionInDb);
+            }
+        }
+        
+        public class Validator : AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(r => r.Id).NotEmpty();
+                RuleFor(r => r.Amount).SetValidator(a => Amount.Validator);
+                RuleFor(r => r.DateTime).SetValidator(a => TransactionDateTime.Validator);
+                RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
+                RuleFor(r => r.Username).SetValidator(a => Username.Validator);
+                RuleFor(r => r.CategoryId).NotEmpty();
+                RuleFor(r => r.TransactionType).NotEmpty();
             }
         }
     }

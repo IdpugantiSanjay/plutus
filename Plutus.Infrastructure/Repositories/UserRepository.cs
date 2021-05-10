@@ -22,17 +22,30 @@ namespace Plutus.Infrastructure.Repositories
             await _context.Users.AddAsync(user);
         }
 
-        public async Task<bool> EmailAlreadyExists(string email)
+        // public async Task<bool> EmailExists(string email)
+        // {
+        //     var result = await _context.Users.SingleOrDefaultAsync(u => u.Email.Value == email);
+        //     return result != default;
+        // }
+
+
+        public async Task<User> FindByUsername(string username)
+        {
+            var result = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+            return result;
+        }
+        
+        public async Task<User> FindByEmail(string email)
         {
             var result = await _context.Users.SingleOrDefaultAsync(u => u.Email.Value == email);
-            return result != default;
+            return result;
         }
 
-        public async Task<bool> UsernameAlreadyExists(string username)
-        {
-            var result = await _context.Users.SingleOrDefaultAsync(u => u.Username.Value == username);
-            return result != default;
-        }
+        // public async Task<bool> UsernameExists(string username)
+        // {
+        //     var result = await _context.Users.SingleOrDefaultAsync(u => u.Username.Value == username);
+        //     return result != default;
+        // }
 
         public async Task SaveChangesAsync()
         {

@@ -6,23 +6,25 @@ namespace Plutus.Domain.ValueObjects
 {
     public sealed class Amount: ValueOf<decimal, Amount>
     {
-        private readonly AmountValidator _validator = new();
+        public static readonly AmountValidator Validator = new();
 
         protected override void Validate()
         {
-            var result = _validator.Validate(this);
+            var result = Validator.Validate(this);
             if (result.IsValid is false)
                 throw new InvalidAmountException("Invalid Amount. Amount should be given between 0 and 100,000");
         }
 
         public static implicit operator Amount(decimal amount) => From(amount);
+        
+        public static implicit operator decimal(Amount amount) => amount.Value;
     }
 
-    internal class AmountValidator : AbstractValidator<Amount>
+    public class AmountValidator : AbstractValidator<decimal>
     {
         public AmountValidator()
         {
-            RuleFor(a => a.Value).NotEmpty().GreaterThan(0).LessThan(100_000);
+            RuleFor(a => a).NotEmpty().GreaterThan(0).LessThan(100_000);
         }
     }
 

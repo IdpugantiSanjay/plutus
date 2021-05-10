@@ -10,11 +10,12 @@
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="FluentValidation" Version="10.0.2" />
       <PackageReference Include="MediatR" Version="9.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Transactions" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-preview.2.21154.6" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
     </ItemGroup>
 
 </Project>

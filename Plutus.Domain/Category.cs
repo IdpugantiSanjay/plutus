@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Plutus.Domain.Enums;
 
 namespace Plutus.Domain
 {
@@ -21,5 +23,7 @@ namespace Plutus.Domain
             Name = name;
             TransactionType = transactionType;
         }
+
+        public IEnumerable<Transaction> Transactions { get; set; }
     }
 }

@@ -3,43 +3,33 @@ version: '3.4'
 services:
   plutus.restapi:
     container_name: plutus-api
-    image: ${DOCKER_REGISTRY-}plutusapi
+    image: "${DOCKER_REGISTRY-}plutusapi:latest"
     build:
       context: .
       dockerfile: Plutus.Api/Dockerfile
     depends_on:
-      - database-server
-#      - load-balancer
-#      - jaeger
+      database-server:
+        condition: service_healthy
+    environment:
+      - PGPASSWORD=${PG_PASSWORD}
+      - PGUSER=${PG_USER}
+      - PGDATABASE=${PG_DATABASE}
+      - PGHOST=${PG_HOST}
     ports:
       - 5000:80
+      
+
   database-server:
-    image: postgres
+    image: postgres:13
     container_name: plutus-database
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=sanjay_11
-      - POSTGRES_USER=sanjay
-      - POSTGRES_DB=plutus
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_DB=${PG_DATABASE}
     ports:
       - 5432:5432
-#  load-balancer:
-#    image: nginx
-#    container_name: load-balancer
-#    ports:
-#    - 80:80
-    
-#  jaeger:
-#    image: jaegertracing/all-in-one:latest
-#    container_name: jaeger
-#    hostname: jaeger
-#    ports:
-#      - "5775:5775/udp"
-#      - "6831:6831/udp"
-#      - "6832:6832/udp"
-#      - "5778:5778"
-#      - "16686:16686"
-#      - "14250:14250"
-#      - "9411:9411"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

@@ -16,7 +16,7 @@ namespace Plutus.Application.UnitTests
         {
             var users = new[]
             {
-                new User("sanjay", "sanjay11@outlook.com", "Sanjay", "Idpuganti", "Sanjay_11")
+                new User("sanjay", "sanjay_11","sanjay11@outlook.com", "Sanjay", "Idpuganti")
             };
             _context.Users.AddRange(users);
             _context.SaveChanges();
@@ -27,7 +27,7 @@ namespace Plutus.Application.UnitTests
         [Fact]
         public async Task ShouldReturnCreatedUsername()
         {
-            var request = new Create.Request("isanjay", "Sanjay","Idpuganti", "sanjay112@outlook.com", "Sanjay_11");
+            var request = new Create.Request("isanjay", "sanjay_11","Sanjay","Idpuganti", "sanjay112@outlook.com");
             var handledResult = await _handler.Handle(request,
                 CancellationToken.None);
            Assert.Equal(handledResult.Username, request.Username); 

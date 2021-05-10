@@ -1,4 +1,4 @@
-namespace Plutus.Domain
+namespace Plutus.Domain.Enums
 {
     public enum TransactionType
     {

@@ -23,14 +23,21 @@ namespace Plutus.Infrastructure.Repositories
         {
             var transactions = _context
                 .Transactions
+                .Where(t => !t.InActive)
                 .Where(FilterByDate(request))
                 .Where(FilterByDescription(request))
                 .Where(FilterByCategory(request))
+                .Include(t => t.Category)
                 .ToListAsync();
             
             return transactions;
         }
 
+        private static Expression<Func<Transaction, bool>> FilterByUsername(FindTransactions.Request request)
+        {
+            return t => t.Username == request.Username;
+        }
+        
         private static Expression<Func<Transaction, bool>> FilterByCategory(FindTransactions.Request request)
         {
             if (request.CategoryId != default) return t => t.CategoryId == request.CategoryId && t.TransactionType == request.TransactionType;
@@ -39,7 +46,7 @@ namespace Plutus.Infrastructure.Repositories
 
         private static Expression<Func<Transaction, bool>> FilterByDescription(FindTransactions.Request request)
         {
-            if (request.Description is {Length: > 0} description) return t => !string.IsNullOrEmpty(t.Description) && t.Description.Value.Contains(description);
+            if (request.Description is { Length: > 0 }  description) return t => !string.IsNullOrEmpty(t.Description) && t.Description.Value.Contains(description);
             return t => true;
         }
 

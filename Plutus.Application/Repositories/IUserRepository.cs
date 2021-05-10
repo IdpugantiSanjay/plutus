@@ -9,10 +9,9 @@ namespace Plutus.Application.Repositories
     {
         public Task AddAsync(User user);
 
+        public Task<User> FindByEmail(string email);
         
-        public Task<bool> EmailAlreadyExists(string email);
-        
-        public Task<bool> UsernameAlreadyExists(string username);
+        public Task<User> FindByUsername(string username);
 
         public Task SaveChangesAsync();
     }

@@ -12,11 +12,10 @@ namespace Plutus.Application.Users.Commands
     public static class Create
     {
         public record Request
-        (string Username, string Firstname, string Lastname, string Email,
-            string Password) : IRequest<Response>;
+            (string Username, string Password, string Firstname, string Lastname, string Email) : IRequest<Response>;
 
 
-        public record Response(string Username);    
+        public record Response(string Username);
 
 
         public class Handler : IRequestHandler<Request, Response>
@@ -42,15 +41,15 @@ namespace Plutus.Application.Users.Commands
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 User user = new(
-                    request.Username, request.Email, request.Firstname, request.Lastname, request.Password
+                    request.Username, request.Password, request.Email, request.Firstname, request.Lastname
                 );
 
-                var exists = await _repository.EmailAlreadyExists(user.Email);
-                if (exists)
+                var exists = await _repository.FindByEmail(user.Email);
+                if (exists is not null)
                     throw new EmailAlreadyExistsException(request.Email);
 
-                exists = await _repository.UsernameAlreadyExists(user.Username);
-                if (exists)
+                exists = await _repository.FindByEmail(user.Username);
+                if (exists is not null)
                     throw new UsernameTakenException(request.Username);
 
                 await _repository.AddAsync(user);
