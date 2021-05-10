@@ -30,7 +30,7 @@ jobs:
         run: docker-compose -f docker-compose.yml -f docker-compose.test.override.yml up --build --abort-on-container-exit integration-tests
         
       - name: Checking Directory
-        run:  ls && ls code/
+        run:  ls && ls /code
         
       - name: Upload Test results
         uses: actions/upload-artifact@v2
