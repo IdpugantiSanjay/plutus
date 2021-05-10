@@ -41,7 +41,8 @@ namespace Plutus.Application.Users.Commands
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 User user = new(
-                    request.Username, request.Password, request.Email, request.Firstname, request.Lastname
+                    username: request.Username, email: request.Email, password: request.Password, firstName:
+                    request.Firstname, lastName: request.Lastname
                 );
 
                 var exists = await _repository.FindByEmail(user.Email);

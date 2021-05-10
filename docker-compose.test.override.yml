@@ -16,7 +16,7 @@ services:
     command: >
       bash -c "
         chmod +x scripts/wait-for-it.sh && ./scripts/wait-for-it.sh database-server:5432
-        dotnet test ./Plutus.Api.IntegrationTests/Plutus.Api.IntegrationTests.csproj --logger trx --results-directory /var/temp /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=TestResults/
+        dotnet test --logger trx --results-directory /var/temp /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=TestResults/
       "
     depends_on:
       - database-server

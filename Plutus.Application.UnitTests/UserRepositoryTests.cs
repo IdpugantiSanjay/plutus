@@ -9,13 +9,13 @@ namespace Plutus.Application.UnitTests
     {
         private readonly UserRepository _repository;
 
-        private readonly User _userToAdd = new("isanjay", "sanjay112@outlook.com", "sanjay_11", "Sanjay", "Idpuganti");
+        private readonly User _userToAdd = new("isanjay", "sanjay112@outlook.com", "Sanjay_11!", "Sanjay", "Idpuganti");
 
         public UserRepositoryTests()
         {
             var users = new[]
             {
-                new User("sanjay", "sanjay11@outlook.com", "sanjay_11", "Sanjay", "Idpuganti")
+                new User("sanjay", "sanjay11@outlook.com", "Sanjay_11!", "Sanjay", "Idpuganti")
             };
             _context.Users.AddRange(users);
             _context.SaveChanges();

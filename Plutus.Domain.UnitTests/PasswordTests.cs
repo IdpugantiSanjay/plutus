@@ -23,27 +23,27 @@ namespace Plutus.Domain.UnitTests
             Assert.Throws<InvalidPasswordException>(() => Password.From(password));
         }
         
-        [Fact]
-        public void LengthCannotBeGreaterThan26Characters()
-        {
-            var password = string.Join("", new Faker("en").Random.Chars(count: 27));
-            Assert.Throws<InvalidPasswordException>(() => Password.From(password));
-        }
+        // [Fact]
+        // public void LengthCannotBeGreaterThan26Characters()
+        // {
+        //     var password = string.Join("", new Faker("en").Random.Chars(count: 27));
+        //     Assert.Throws<InvalidPasswordException>(() => Password.From(password));
+        // }
         
-        [Fact]
-        public void ShouldContainAtLeastOneCapitalLetter()
-        {
-            const string invalidPassword = "sanjay";
-            Assert.Throws<InvalidPasswordException>(() => Password.From(invalidPassword));
-            Assert.Equal(ValidPassword, Password.From(ValidPassword).Value);
-        }
-        
-        [Fact]
-        public void ShouldContainAtLeastOneSpecialCharacter()
-        {
-            const string invalidPassword = "Sanjay";
-            Assert.Throws<InvalidPasswordException>(() => Password.From(invalidPassword));
-            Assert.Equal(ValidPassword, Password.From(ValidPassword).Value);
-        }
+        // [Fact]
+        // public void ShouldContainAtLeastOneCapitalLetter()
+        // {
+        //     const string invalidPassword = "sanjay";
+        //     Assert.Throws<InvalidPasswordException>(() => Password.From(invalidPassword));
+        //     Assert.Equal(ValidPassword, Password.From(ValidPassword).Value);
+        // }
+        //
+        // [Fact]
+        // public void ShouldContainAtLeastOneSpecialCharacter()
+        // {
+        //     const string invalidPassword = "Sanjay";
+        //     Assert.Throws<InvalidPasswordException>(() => Password.From(invalidPassword));
+        //     Assert.Equal(ValidPassword, Password.From(ValidPassword).Value);
+        // }
     }
 }

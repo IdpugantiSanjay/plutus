@@ -30,12 +30,12 @@ namespace Plutus.Domain.ValueObjects
                 .NotEmpty();
         }
 
-        private static bool ContainsCapitalLetter(string password) => password.Any(char.IsUpper);
-
-        private static bool ContainsSpecialCharacter(string password)
-        {
-            char[] special = {'$', '%', '@', '_', '&', '^', '*', '!', '#'};
-            return password.Any(special.Contains);
-        }
+        // private static bool ContainsCapitalLetter(string password) => password.Any(char.IsUpper);
+        //
+        // private static bool ContainsSpecialCharacter(string password)
+        // {
+        //     char[] special = {'$', '%', '@', '_', '&', '^', '*', '!', '#'};
+        //     return password.Any(special.Contains);
+        // }
     }
 }
