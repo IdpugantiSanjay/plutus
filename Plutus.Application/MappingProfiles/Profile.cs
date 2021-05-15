@@ -10,6 +10,7 @@ namespace Plutus.Application.MappingProfiles
         public Profile()
         {
             CreateMap<Transaction, CreateTransaction.Response>();
+            CreateMap<Transaction, UpdateTransaction.Response>();
             CreateMap<Transaction, TransactionViewModel>().ForMember(dest => dest.DateTime, exp => exp.MapFrom(src =>  src.DateTime.Value));
             CreateMap<Category, CategoryViewModel>();
         }

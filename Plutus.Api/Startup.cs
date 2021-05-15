@@ -5,13 +5,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Plutus.Api.Middleware;
@@ -20,7 +18,6 @@ using Plutus.Application.Repositories;
 using Plutus.Application.Transactions.Commands;
 using Plutus.Infrastructure;
 using Plutus.Infrastructure.Repositories;
-using Serilog;
 
 
 namespace Plutus.Api
@@ -78,6 +75,7 @@ namespace Plutus.Api
 
             services.AddSwaggerGen(c =>
             {
+                c.CustomSchemaIds(t => t.ToString());
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Plutus.Api", Version = "v1"});
             });
 
@@ -108,7 +106,11 @@ namespace Plutus.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Plutus.Api v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Plutus.Api v1");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -122,7 +124,7 @@ namespace Plutus.Api
 
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
-            app.UseMiddleware<AddUserToRouteMiddleware>();
+            app.UseMiddleware<CheckIfUsernameInTokenIsSameAsRequestUsername>();
 
             app.UseEndpoints(endpoints =>
             {

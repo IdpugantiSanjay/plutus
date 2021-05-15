@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
@@ -15,7 +16,7 @@ namespace Plutus.Application.Transactions.Commands
     public static class CreateTransaction
     {
         public record Request(decimal Amount, DateTime DateTime, string Description, Guid CategoryId,
-            string Username, TransactionType TransactionType) : IRequest<Response>;
+            [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
 
         public class Response
         {

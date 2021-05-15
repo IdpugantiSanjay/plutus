@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
 using Plutus.Domain.ValueObjects;
 

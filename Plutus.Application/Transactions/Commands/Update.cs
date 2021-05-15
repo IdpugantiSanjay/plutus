@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
@@ -14,7 +15,7 @@ namespace Plutus.Application.Transactions.Commands
     public static class UpdateTransaction
     {
         public record Request(Guid Id, decimal Amount, DateTime DateTime,
-            string Description, Guid CategoryId, string Username, TransactionType TransactionType) : IRequest<Response>;
+            string Description, Guid CategoryId, [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
 
         public record Response(Guid Id);
 
@@ -63,7 +64,7 @@ namespace Plutus.Application.Transactions.Commands
                 RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
                 RuleFor(r => r.Username).SetValidator(a => Username.Validator);
                 RuleFor(r => r.CategoryId).NotEmpty();
-                RuleFor(r => r.TransactionType).NotEmpty();
+                // RuleFor(r => r.TransactionType).NotEmpty();
             }
         }
     }
