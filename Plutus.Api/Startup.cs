@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -89,7 +91,7 @@ namespace Plutus.Api
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                var connectionString = BuildConnectionString();
+                var connectionString = BuildConnectionString(Configuration);
                 // Log.Information($"The formed connection string is {connectionString}");
                 options.UseNpgsql(connectionString);
             });
@@ -106,11 +108,7 @@ namespace Plutus.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Plutus.Api v1");
-                });
+                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Plutus.Api v1"); });
             }
 
             app.UseHttpsRedirection();
@@ -124,7 +122,9 @@ namespace Plutus.Api
 
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
-            app.UseMiddleware<CheckIfUsernameInTokenIsSameAsRequestUsername>();
+            if (env.IsEnvironment("Testing") is false)
+                app.UseMiddleware<CheckIfUsernameInTokenIsSameAsRequestUsername>();
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -133,11 +133,23 @@ namespace Plutus.Api
             });
         }
 
-        private static string BuildConnectionString()
+        private static string BuildConnectionString(IConfiguration configuration)
         {
-            var connectionString =
-                $"Host={Environment.GetEnvironmentVariable("PGHOST")};Database={Environment.GetEnvironmentVariable("PGDATABASE")};Username={Environment.GetEnvironmentVariable("PGUSER")};Password={Environment.GetEnvironmentVariable("PGPASSWORD")};Include Error Detail=true";
-            return connectionString;
+            var host = Environment.GetEnvironmentVariable("PGHOST");
+            var database = Environment.GetEnvironmentVariable("PGDATABASE");
+            var user = Environment.GetEnvironmentVariable("PGUSER");
+            var password = Environment.GetEnvironmentVariable("PGPASSWORD");
+
+            var credentialsInvalid = new[] {host, database, user, password}.Any(string.IsNullOrEmpty);
+
+            return credentialsInvalid switch
+            {
+                false =>
+                    $"Host={host};Database={database};Username={user};Password={password};Include Error Detail=true",
+                _ when configuration.GetConnectionString("Database") is not null => configuration.GetConnectionString(
+                    "Database"),
+                _ => throw new InvalidCredentialException("Invalid Postgres Credentials")
+            };
         }
     }
 }

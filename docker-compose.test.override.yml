@@ -13,6 +13,7 @@ services:
       - PGUSER=sanjay
       - PGDATABASE=plutus
       - PGHOST=plutus-database
+      - ASPNETCORE_ENVIRONMENT=Testing
     command: >
       bash -c "
         chmod +x scripts/wait-for-it.sh && ./scripts/wait-for-it.sh database-server:5432

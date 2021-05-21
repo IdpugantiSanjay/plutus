@@ -11,6 +11,13 @@ namespace Plutus.Api.IntegrationTests
 {
     public class IntegrationTestsApplicationFactory : WebApplicationFactory<IntegrationTestStartup>
     {
+        static IntegrationTestsApplicationFactory()
+        {
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (env is null)
+                Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Testing");
+        }
+
         protected override IHost CreateHost(IHostBuilder builder)
         {
             return base.CreateHost(builder).Migrate();

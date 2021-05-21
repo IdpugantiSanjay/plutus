@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Plutus.Application.Repositories;
 using Plutus.Application.Transactions.Commands;
@@ -37,12 +38,14 @@ namespace Plutus.Api.IntegrationTests
         [Fact]
         public async Task ShouldReturnTransactionIdWhenCorrectTransactionIsProvided()
         {
-            var client = _factory.CreateClient();
-
+            using var client = _factory.CreateClient();
+            
+            const string username = "sanjay";
+            
             CreateTransaction.Request request =
-                new(10, DateTime.Now, "Test", _foodAndDrinksId, "sanjay", TransactionType.Expense);
+                new(10, DateTime.Now, "Test", _foodAndDrinksId, username, TransactionType.Expense);
 
-            var httpResponse = await client.PostAsync("api/users/transactions", JsonContent.Create(request));
+            var httpResponse = await client.PostAsync($"api/users/{username}/transactions", JsonContent.Create(request));
             httpResponse.EnsureSuccessStatusCode();
 
             Assert.True(httpResponse.IsSuccessStatusCode);
@@ -53,24 +56,26 @@ namespace Plutus.Api.IntegrationTests
         [Fact]
         public async Task ShouldThrowAnErrorWhenReferencialIntegrityBreaksForUsername()
         {
-            var client = _factory.CreateClient();
+            using var client = _factory.CreateClient();
+            const string username = "sanjay";
             
             CreateTransaction.Request request =
                 new(10, DateTime.Now, "Test", _foodAndDrinksId, "randomusrnme", TransactionType.Expense);
 
             await Assert.ThrowsAsync<DbUpdateException>(async () =>
-                await client.PostAsync("api/users/transactions", JsonContent.Create(request)));
+                await client.PostAsync($"api/users/{username}/transactions", JsonContent.Create(request)));
         }
         
         [Fact]
         public async Task ShouldThrowAnErrorWhenReferencialIntegrityBreaksForCategory()
         {
-            var client = _factory.CreateClient();
+            using var client = _factory.CreateClient();
+            var username = "sanjay";
             
             CreateTransaction.Request request =
-                new(10, DateTime.Now, "Test", Guid.NewGuid(), "sanjay", TransactionType.Expense);
+                new(10, DateTime.Now, "Test", Guid.NewGuid(), username, TransactionType.Expense);
             
-            await Assert.ThrowsAsync<DbUpdateException>(async () => await client.PostAsync("api/users/transactions", JsonContent.Create(request)));
+            await Assert.ThrowsAsync<DbUpdateException>(async () => await client.PostAsync($"api/users/{username}/transactions", JsonContent.Create(request)));
         }
     }
 }
