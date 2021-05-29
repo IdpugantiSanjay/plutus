@@ -1,6 +1,11 @@
 version: '3.4'
 
 services:
+  plutus.web:
+    container_name: plutus-web
+    image: "${DOCKER_REGISTRY-}isanjay112/plutus-web:0.0.1"
+    ports:
+    - 4200:4200
   plutus.restapi:
     container_name: plutus-api
     image: "${DOCKER_REGISTRY-}plutusapi:latest"
