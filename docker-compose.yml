@@ -23,7 +23,6 @@ services:
       - PGHOST=${PG_HOST}
     ports:
       - 5000:80
-      
 
   database-server:
     image: postgres:13
@@ -35,7 +34,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-    - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DATABASE}"]
       interval: 5s
