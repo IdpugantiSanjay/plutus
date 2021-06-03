@@ -6,7 +6,7 @@ services:
     image: "${DOCKER_REGISTRY-}isanjay112/plutus-web:latest"
     ports:
     - 4200:4200
-    
+
   plutus.restapi:
     container_name: plutus-api
     image: "${DOCKER_REGISTRY-}plutusapi:latest"
