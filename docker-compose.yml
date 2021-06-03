@@ -3,9 +3,10 @@ version: '3.4'
 services:
   plutus.web:
     container_name: plutus-web
-    image: "${DOCKER_REGISTRY-}isanjay112/plutus-web:0.0.1"
+    image: "${DOCKER_REGISTRY-}isanjay112/plutus-web:latest"
     ports:
     - 4200:4200
+
   plutus.restapi:
     container_name: plutus-api
     image: "${DOCKER_REGISTRY-}plutusapi:latest"
@@ -22,7 +23,6 @@ services:
       - PGHOST=${PG_HOST}
     ports:
       - 5000:80
-      
 
   database-server:
     image: postgres:13
@@ -33,6 +33,8 @@ services:
       - POSTGRES_DB=${PG_DATABASE}
     ports:
       - 5432:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DATABASE}"]
       interval: 5s
