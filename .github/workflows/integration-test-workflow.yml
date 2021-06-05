@@ -36,6 +36,13 @@ jobs:
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
         
+      - name: Generate Deployment Package
+        run: zip -r deploy.zip * -x "**node_modules**"
+        
+      - name: Get timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+        
       - name: Run string replace
         uses: frabert/replace-string-action@master
         id: format-time
@@ -54,5 +61,6 @@ jobs:
           environment_name: dev-env
           region: ap-south-1
           version_label: "plutus-deployment-${{ steps.format-time.outputs.replaced }}"
+          deployment_package: deploy.zip
       
       
