@@ -36,9 +36,9 @@ jobs:
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
         
-      - name: Deploy to Elastic Bean Stalk
-      - uses: einaregilsson/beanstalk-deploy@v14
-      - with: 
+      - name: Beanstalk Deploy
+        uses: einaregilsson/beanstalk-deploy@v14
+        with: 
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
           application_name: plutus
