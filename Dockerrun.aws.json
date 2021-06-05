@@ -1,0 +1,65 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "isanjay112/plutus-web:latest",
+      "hostname": "client",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 4200,
+          "containerPort": 4200
+        }
+      ],
+      "links": [
+        "server"
+      ],
+      "memory": 100
+    },
+    {
+      "name": "server",
+      "image": "plutusapi:latest",
+      "hostname": "server",
+      "environment": [
+        {
+          "name": "PGPASSWORD",
+          "value": "sanjay_11"
+        },
+        {
+          "name": "PGUSER",
+          "value": "sanjay"
+        },
+        {
+          "name": "PGDATABASE",
+          "value": "plutus"
+        },
+        {
+          "name": "PGHOST",
+          "value": "plutus-database"
+        }
+      ],
+      "essential": true,
+      "memory": 500
+    },
+    {
+      "name": "database",
+      "image": "postgres:13",
+      "hostname": "plutus-database",
+      "environment": [
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "sanjay_11"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "sanjay"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "plutus"
+        }
+      ]
+    }
+  ]
+}
