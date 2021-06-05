@@ -1,4 +1,5 @@
 {
+  
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
@@ -8,8 +9,8 @@
       "essential": true,
       "portMappings": [
         {
-          "hostPort": 4200,
-          "containerPort": 4200
+          "hostPort": 80,
+          "containerPort": 80
         }
       ],
       "links": [
