@@ -28,7 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run Integration Tests
         run: docker-compose -f docker-compose.yml -f docker-compose.test.override.yml up --build --abort-on-container-exit integration-tests
-        
+
       - name: Upload Test results
         uses: actions/upload-artifact@v2
         with:
@@ -36,4 +36,12 @@ jobs:
           path: TestResults
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
-      
+
+      - name: Beanstalk Deploy
+      - uses: einaregilsson/beanstalk-deploy@v14
+      - with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+          application_name: plutus
+          environment_name: dev-env
+          region: ap-south-1
