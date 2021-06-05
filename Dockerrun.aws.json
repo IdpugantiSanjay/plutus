@@ -15,12 +15,18 @@
       "links": [
         "server"
       ],
-      "memory": 300
+      "memory": 250
     },
     {
       "name": "server",
       "image": "plutusapi:latest",
       "hostname": "server",
+      "portMappings": [
+        {
+          "hostPort": 5000,
+          "containerPort": 80
+        }
+      ],
       "environment": [
         {
           "name": "PGPASSWORD",
@@ -40,12 +46,18 @@
         }
       ],
       "essential": true,
-      "memory": 300
+      "memory": 250
     },
     {
       "name": "database",
       "image": "postgres:13",
       "hostname": "plutus-database",
+      "portMappings": [
+        {
+          "hostPort": 5432,
+          "containerPort": 5432
+        }
+      ],
       "environment": [
         {
           "name": "POSTGRES_PASSWORD",
@@ -60,7 +72,7 @@
           "value": "plutus"
         }
       ],
-      "memory": 300
+      "memory": 250
     }
   ]
 }
