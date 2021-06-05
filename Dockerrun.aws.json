@@ -15,7 +15,7 @@
       "links": [
         "server"
       ],
-      "memory": 100
+      "memory": 300
     },
     {
       "name": "server",
@@ -40,7 +40,7 @@
         }
       ],
       "essential": true,
-      "memory": 500
+      "memory": 300
     },
     {
       "name": "database",
@@ -59,7 +59,8 @@
           "name": "POSTGRES_DB",
           "value": "plutus"
         }
-      ]
+      ],
+      "memory": 300
     }
   ]
 }
