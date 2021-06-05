@@ -19,7 +19,7 @@
     },
     {
       "name": "server",
-      "image": "plutusapi:latest",
+      "image": "isanjay112/plutusapi:latest",
       "hostname": "server",
       "portMappings": [
         {
