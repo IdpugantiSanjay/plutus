@@ -1,5 +1,4 @@
 {
-  
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
@@ -13,14 +12,12 @@
           "containerPort": 80
         }
       ],
-      "links": [
-        "server"
-      ],
+      "links": ["server"],
       "memory": 250
     },
     {
       "name": "server",
-      "image": "isanjay112/plutusapi:latest",
+      "image": "isanjay112/plutus-api:latest",
       "hostname": "server",
       "portMappings": [
         {
@@ -46,6 +43,7 @@
           "value": "plutus-database"
         }
       ],
+      "links": ["database"],
       "essential": true,
       "memory": 250
     },
