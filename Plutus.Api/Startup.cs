@@ -14,12 +14,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Nest;
 using Plutus.Api.Middleware;
-using Plutus.Application.MappingProfiles;
 using Plutus.Application.Repositories;
 using Plutus.Application.Transactions.Commands;
+using Plutus.Application.Transactions.Indexes;
+using Plutus.ElasticSearch.Infrastructure;
 using Plutus.Infrastructure;
 using Plutus.Infrastructure.Repositories;
+using Profile = Plutus.Application.MappingProfiles.Profile;
 
 
 namespace Plutus.Api
@@ -61,6 +64,8 @@ namespace Plutus.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddElasticSearch(new ConnectionSettings(new Uri(Configuration["Elastic:ServerUrl"])));
+            
             services.AddCors(o =>
             {
                 o.AddPolicy(name: OriginPolicy,
@@ -99,11 +104,14 @@ namespace Plutus.Api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddSingleton<TransactionIndex>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<RequestLogger>();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

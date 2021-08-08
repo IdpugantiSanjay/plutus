@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +7,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
+using Plutus.Application.Transactions.Indexes;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
 using Plutus.Domain.ValueObjects;
@@ -25,13 +27,15 @@ namespace Plutus.Application.Transactions.Commands
 
         public class Handler : IRequestHandler<Request, Response>
         {
-            private readonly ITransactionRepository _transactionRepository;
+            private readonly ITransactionRepository _repository;
             private readonly IMapper _mapper;
+            private readonly TransactionIndex _trxIndex;
 
-            public Handler(ITransactionRepository transactionRepository, IMapper mapper)
+            public Handler(ITransactionRepository repository, IMapper mapper, TransactionIndex trxIndex)
             {
-                _transactionRepository = transactionRepository;
+                _repository = repository;
                 _mapper = mapper;
+                _trxIndex = trxIndex;
             }
 
             public async Task<Response> Handle(Request request,
@@ -46,26 +50,31 @@ namespace Plutus.Application.Transactions.Commands
                     request.CategoryId,
                     request.Description
                 );
+                
+                
+                var addedTransaction = await _repository.AddAsync(transaction);
+                var response = _mapper.Map<Response>(addedTransaction);
 
-                var addedTransaction = await _transactionRepository.AddAsync(transaction);
-                await _transactionRepository.SaveChangesAsync();
-                var response =_mapper.Map<Response>(addedTransaction);
+                await _trxIndex.IndexAsync(new TransactionIndex.Transaction(addedTransaction.Id, addedTransaction.Username,
+                    addedTransaction.Category.Name, addedTransaction.DateTime, addedTransaction.Amount,
+                    addedTransaction.Description, addedTransaction.TransactionType == TransactionType.Income), cancellationToken);
+                
                 return response;
             }
         }
 
 
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(r => r.Amount).SetValidator(a => Amount.Validator);
-                RuleFor(r => r.DateTime).SetValidator(a => TransactionDateTime.Validator);
-                RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
-                RuleFor(r => r.Username).SetValidator(a => Username.Validator);
-                RuleFor(r => r.CategoryId).NotEmpty();
-                // RuleFor(r => r.TransactionType).NotEmpty();
-            }
-        }
+        // public class Validator : AbstractValidator<Request>
+        // {
+        //     public Validator()
+        //     {
+        //         RuleFor(r => r.Amount).SetValidator(a => Amount.Validator);
+        //         RuleFor(r => r.DateTime).SetValidator(a => TransactionDateTime.Validator);
+        //         RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
+        //         RuleFor(r => r.Username).SetValidator(a => Username.Validator);
+        //         RuleFor(r => r.CategoryId).NotEmpty();
+        //         // RuleFor(r => r.TransactionType).NotEmpty();
+        //     }
+        // }
     }
 }

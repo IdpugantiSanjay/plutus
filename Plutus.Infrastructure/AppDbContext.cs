@@ -71,6 +71,7 @@ namespace Plutus.Infrastructure
 
                 e.HasData(
                     new Category(Guid.NewGuid(), "Food & Drinks", TransactionType.Expense),
+                    new Category(Guid.NewGuid(), "Online Shopping", TransactionType.Expense),
                     new Category(Guid.NewGuid(), "Travel", TransactionType.Expense),
                     new Category(Guid.NewGuid(), "Transfer", TransactionType.Expense),
                     new Category(Guid.NewGuid(), "Bills", TransactionType.Expense),

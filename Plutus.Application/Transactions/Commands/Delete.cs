@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
+using Plutus.Application.Transactions.Indexes;
 using Plutus.Domain.ValueObjects;
 
 namespace Plutus.Application.Transactions.Commands
@@ -19,10 +20,12 @@ namespace Plutus.Application.Transactions.Commands
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly ITransactionRepository _repository;
+            private readonly TransactionIndex _transactionIndex;
 
-            public Handler(ITransactionRepository repository)
+            public Handler(ITransactionRepository repository, TransactionIndex transactionIndex)
             {
                 _repository = repository;
+                _transactionIndex = transactionIndex;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -31,6 +34,8 @@ namespace Plutus.Application.Transactions.Commands
                 transactionToDelete.MakeInActive();
                 _repository.Update(transactionToDelete);
                 await _repository.SaveChangesAsync();
+                
+                await _transactionIndex.DeleteAsync(request.Id.ToString(), cancellationToken);
                 return new Response(request.Id);
             }
         }

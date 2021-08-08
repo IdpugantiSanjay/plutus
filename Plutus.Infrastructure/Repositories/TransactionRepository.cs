@@ -69,8 +69,9 @@ namespace Plutus.Infrastructure.Repositories
 
         public async Task<Transaction> AddAsync(Transaction transaction)
         {
-            var addedTransaction = await _context.Transactions.AddAsync(transaction);
-            return addedTransaction.Entity;
+            var _ = await _context.Transactions.AddAsync(transaction);
+            await _context.SaveChangesAsync();
+            return await _context.Transactions.Include(np => np.Category).FirstAsync(t => t.Id == transaction.Id);
         }
 
         public Transaction Update(Transaction transaction) => _context.Transactions.Update(transaction).Entity;

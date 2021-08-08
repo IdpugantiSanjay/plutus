@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Application.UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Api.IntegrationTests", "Plutus.Api.IntegrationTests\Plutus.Api.IntegrationTests.csproj", "{44F3743E-9C8A-4CE4-A310-EA627A069CC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Cli", "Plutus.Cli\Plutus.Cli.csproj", "{96DA6026-6319-43A8-AC10-2B622A83FE3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,7 @@ Global
 		{1982BED5-C9FB-4942-9AF1-962B0996E15E} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
 		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
 		{44F3743E-9C8A-4CE4-A310-EA627A069CC6} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
+		{96DA6026-6319-43A8-AC10-2B622A83FE3B} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3DCCB300-156B-4293-82A7-9B371A7DC847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -61,5 +64,9 @@ Global
 		{44F3743E-9C8A-4CE4-A310-EA627A069CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44F3743E-9C8A-4CE4-A310-EA627A069CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44F3743E-9C8A-4CE4-A310-EA627A069CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
