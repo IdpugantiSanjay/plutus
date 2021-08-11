@@ -1,30 +1,26 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Serilog;
 
-namespace Plutus.Api.Middleware
+namespace Plutus.Api.Middleware;
+
+public class ErrorHandlerMiddleware
 {
-    public class ErrorHandlerMiddleware
+    private readonly RequestDelegate _next;
+
+    public ErrorHandlerMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public ErrorHandlerMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        try
         {
-            _next = next;
+            await _next(context);
         }
-
-        public async Task Invoke(HttpContext context)
+        catch (Exception error)
         {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception error)
-            {
-                Log.Error(error, error.Message);
-                throw;
-            }
+            Log.Error(error, error.Message);
+            throw;
         }
     }
 }

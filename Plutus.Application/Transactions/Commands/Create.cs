@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -12,69 +8,71 @@ using Plutus.Domain;
 using Plutus.Domain.Enums;
 using Plutus.Domain.ValueObjects;
 
-
-namespace Plutus.Application.Transactions.Commands
+namespace Plutus.Application.Transactions.Commands;
+public static class CreateTransaction
 {
-    public static class CreateTransaction
-    {
-        public record Request(decimal Amount, DateTime DateTime, string Description, Guid CategoryId,
-            [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
+    public record Request(decimal Amount, DateTime DateTime, string Description, Guid CategoryId,
+        [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
 
-        public class Response
+    public class Response
+    {
+        public Guid Id { get; init; }
+    }
+
+    public class Handler : IRequestHandler<Request, Response>
+    {
+        private readonly ITransactionRepository _repository;
+        private readonly IMapper _mapper;
+        private readonly TransactionIndex _trxIndex;
+
+        public Handler(ITransactionRepository repository, IMapper mapper, TransactionIndex trxIndex)
         {
-            public Guid Id { get; init; }
+            _repository = repository;
+            _mapper = mapper;
+            _trxIndex = trxIndex;
         }
 
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<Response> Handle(Request request,
+            CancellationToken cancellationToken)
         {
-            private readonly ITransactionRepository _repository;
-            private readonly IMapper _mapper;
-            private readonly TransactionIndex _trxIndex;
+            Transaction transaction = new(
+                Guid.NewGuid(),
+                TransactionType.Expense,
+                request.Username,
+                request.Amount,
+                request.DateTime,
+                request.CategoryId,
+                request.Description
+            );
 
-            public Handler(ITransactionRepository repository, IMapper mapper, TransactionIndex trxIndex)
-            {
-                _repository = repository;
-                _mapper = mapper;
-                _trxIndex = trxIndex;
-            }
 
-            public async Task<Response> Handle(Request request,
-                CancellationToken cancellationToken)
+            var addedTransaction = await _repository.AddAsync(transaction);
+
+            if (addedTransaction != null)
             {
-                Transaction transaction = new(
-                    Guid.NewGuid(),
-                    TransactionType.Expense,
-                    request.Username,
-                    request.Amount,
-                    request.DateTime,
-                    request.CategoryId,
-                    request.Description
-                );
-                
-                
-                var addedTransaction = await _repository.AddAsync(transaction);
                 var response = _mapper.Map<Response>(addedTransaction);
 
                 await _trxIndex.IndexAsync(new TransactionIndex.Transaction(addedTransaction.Id, addedTransaction.Username,
                     addedTransaction.Category.Name, addedTransaction.DateTime, addedTransaction.Amount,
-                    addedTransaction.Description, addedTransaction.TransactionType == TransactionType.Income), cancellationToken);
-                
+                    addedTransaction?.Description ?? "", addedTransaction!.TransactionType == TransactionType.Income), cancellationToken);
+
                 return response;
             }
+
+            throw new InvalidOperationException();
         }
+    }
 
 
-        // public class Validator : AbstractValidator<Request>
-        // {
-        //     public Validator()
-        //     {
-        //         RuleFor(r => r.Amount).SetValidator(a => Amount.Validator);
-        //         RuleFor(r => r.DateTime).SetValidator(a => TransactionDateTime.Validator);
-        //         RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
-        //         RuleFor(r => r.Username).SetValidator(a => Username.Validator);
-        //         RuleFor(r => r.CategoryId).NotEmpty();
-        //         // RuleFor(r => r.TransactionType).NotEmpty();
-        //     }
-        // }
+    public class Validator : AbstractValidator<Request>
+    {
+        public Validator()
+        {
+            RuleFor(r => r.Amount).SetValidator(a => Amount.Validator);
+            RuleFor(r => r.DateTime).SetValidator(a => TransactionDateTime.Validator);
+            RuleFor(r => r.Description).SetValidator(a => TransactionDescription.Validator);
+            RuleFor(r => r.Username).SetValidator(a => Username.Validator);
+            RuleFor(r => r.CategoryId).NotEmpty();
+        }
     }
 }

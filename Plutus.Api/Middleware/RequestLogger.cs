@@ -1,40 +1,41 @@
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace Plutus.Api.Middleware
+namespace Plutus.Api.Middleware;
+
+
+public class RequestLogger
 {
-    
-    
-    public class RequestLogger
+    private readonly RequestDelegate _next;
+    private readonly ILogger<RequestLogger> _logger;
+    private readonly IHostEnvironment _hostEnvironment;
+
+    public RequestLogger(RequestDelegate next, ILogger<RequestLogger> logger, IHostEnvironment hostEnvironment)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<RequestLogger> _logger;
-        private readonly IHostEnvironment _hostEnvironment;
+        _next = next;
+        _logger = logger;
+        _hostEnvironment = hostEnvironment;
+    }
 
-        public RequestLogger(RequestDelegate next, ILogger<RequestLogger> logger, IHostEnvironment hostEnvironment)
-        {
-            _next = next;
-            _logger = logger;
-            _hostEnvironment = hostEnvironment;
-        }
+    public async Task Invoke(HttpContext context)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        await _next(context);
+        stopwatch.Stop();
 
-        public async Task Invoke(HttpContext context)
-        {
-            var stopwatch = Stopwatch.StartNew();
-            await _next(context);
-            stopwatch.Stop();
-            _logger.LogInformation(
-                "[{@ApplicationName}-{@EnvironmentName}] - {@CurrentDateTime} |  {@StatusCode}  |" + "  {@ElapsedTime} ms".PadLeft(10, ' ')  + " |" +
-                "  {@Method}".PadRight(16, ' ') +
-                "{@Url}",
-                _hostEnvironment.ApplicationName, _hostEnvironment.EnvironmentName, DateTime.Now.ToString("t"),
-                context.Response.StatusCode, stopwatch.ElapsedMilliseconds, context.Request.Method,
-                context.Request.GetDisplayUrl());
-        }
+        const string TEMPLATE = @"
+            [{@ApplicationName}-{@EnvironmentName}] - {@CurrentDateTime} |  {@StatusCode}  |  {@ElapsedTime} ms | {@Method} {@Url}
+        ";
+
+        _logger.LogInformation(
+            TEMPLATE,
+            _hostEnvironment.ApplicationName,
+            _hostEnvironment.EnvironmentName,
+            DateTime.Now.ToString("t"),
+            context.Response.StatusCode,
+            stopwatch.ElapsedMilliseconds.ToString().PadLeft(10, ' '),
+            context.Request.Method.PadRight(16, ' '),
+            context.Request.GetDisplayUrl()
+         );
     }
 }

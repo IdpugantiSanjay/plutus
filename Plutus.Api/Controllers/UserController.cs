@@ -7,33 +7,32 @@ using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Exceptions;
 using Plutus.Application.Users.Commands;
 
-namespace Plutus.Api.Controllers
+namespace Plutus.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]s")]
+public class UserController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]s")]
-    public class UserController: ControllerBase
+    private readonly IMediator _mediator;
+
+    public UserController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public UserController(IMediator mediator)
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("authenticate")]
+    public async Task<IActionResult> Authenticate(Authenticate.Request request, CancellationToken cancellationToken)
+    {
+        try
         {
-            _mediator = mediator;
+            return Ok(await _mediator.Send(request, cancellationToken));
         }
-
-
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("authenticate")]
-        public async Task<IActionResult> Authenticate(Authenticate.Request request, CancellationToken cancellationToken)
+        catch (UsernamePasswordMismatchException e)
         {
-            try
-            {
-                return Ok(await _mediator.Send(request, cancellationToken));
-            }
-            catch (UsernamePasswordMismatchException e)
-            {
-                return new UnauthorizedObjectResult(new {e.Message});
-            }
+            return new UnauthorizedObjectResult(new { e.Message });
         }
     }
 }

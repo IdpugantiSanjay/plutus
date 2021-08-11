@@ -76,7 +76,8 @@ namespace Plutus.Infrastructure
                     new Category(Guid.NewGuid(), "Transfer", TransactionType.Expense),
                     new Category(Guid.NewGuid(), "Bills", TransactionType.Expense),
                     new Category(Guid.NewGuid(), "Salary", TransactionType.Income),
-                    new Category(Guid.NewGuid(), "Transfer", TransactionType.Income)
+                    new Category(Guid.NewGuid(), "Transfer", TransactionType.Income),
+                    new Category(Guid.NewGuid(), "Gift", TransactionType.Income)
                 );
             });
 

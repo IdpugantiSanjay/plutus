@@ -16,7 +16,7 @@ namespace Plutus.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Plutus.Domain.Category", b =>
@@ -38,43 +38,55 @@ namespace Plutus.Infrastructure.Migrations
                     b.HasIndex("Name", "TransactionType")
                         .IsUnique();
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e1476226-a820-41b1-b34b-ef10858dcdf2"),
+                            Id = new Guid("5952fff4-c241-4c87-8eab-47625893e08a"),
                             Name = "Food & Drinks",
                             TransactionType = 0
                         },
                         new
                         {
-                            Id = new Guid("2b4a499d-f099-4609-b217-dab164ae1759"),
+                            Id = new Guid("1bb370fa-5f84-4919-95bd-f6b422d04e53"),
+                            Name = "Online Shopping",
+                            TransactionType = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("01322ab5-be70-4691-a48c-d614d173ce4a"),
                             Name = "Travel",
                             TransactionType = 0
                         },
                         new
                         {
-                            Id = new Guid("780546af-ee40-4513-b2b8-b9f43f2b7aec"),
+                            Id = new Guid("f3407e98-9a7c-4576-8926-308d309f11f9"),
                             Name = "Transfer",
                             TransactionType = 0
                         },
                         new
                         {
-                            Id = new Guid("50ad9a4e-8eb0-4e34-9e4f-21433e671558"),
+                            Id = new Guid("03577014-5d5a-4736-8c28-c2966532c9f5"),
                             Name = "Bills",
                             TransactionType = 0
                         },
                         new
                         {
-                            Id = new Guid("8b4d2ee1-9cdf-4760-b0f9-7e5a543a3f97"),
+                            Id = new Guid("3bd27765-d5b2-4534-ba73-daa8bbfceb8a"),
                             Name = "Salary",
                             TransactionType = 1
                         },
                         new
                         {
-                            Id = new Guid("6193fbce-a045-4ad6-8cf0-d11a0ea8cb7d"),
+                            Id = new Guid("3163b824-cae4-4953-988b-27c98f3ab585"),
                             Name = "Transfer",
+                            TransactionType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("7bbb3fe2-4948-4b60-a02e-5ecc75cd5fa6"),
+                            Name = "Gifts",
                             TransactionType = 1
                         });
                 });
@@ -94,7 +106,7 @@ namespace Plutus.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOnUtc")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2021, 5, 9, 10, 11, 21, 84, DateTimeKind.Utc).AddTicks(1561));
+                        .HasDefaultValue(new DateTime(2021, 8, 11, 18, 23, 27, 89, DateTimeKind.Utc).AddTicks(5838));
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
@@ -122,7 +134,7 @@ namespace Plutus.Infrastructure.Migrations
 
                     b.HasIndex("Username");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transaction", (string)null);
                 });
 
             modelBuilder.Entity("Plutus.Domain.User", b =>
@@ -134,7 +146,7 @@ namespace Plutus.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOnUtc")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2021, 5, 9, 10, 11, 21, 136, DateTimeKind.Utc).AddTicks(3189));
+                        .HasDefaultValue(new DateTime(2021, 8, 11, 18, 23, 27, 92, DateTimeKind.Utc).AddTicks(9031));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -168,7 +180,7 @@ namespace Plutus.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
 
                     b.HasData(
                         new

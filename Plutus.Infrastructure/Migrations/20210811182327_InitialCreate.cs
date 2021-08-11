@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Plutus.Infrastructure.Migrations
 {
-    public partial class First : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,7 @@ namespace Plutus.Infrastructure.Migrations
                     FirstName = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     LastName = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     LastModifiedUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2021, 5, 9, 10, 11, 21, 136, DateTimeKind.Utc).AddTicks(3189)),
+                    CreatedOnUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2021, 8, 11, 18, 23, 27, 92, DateTimeKind.Utc).AddTicks(9031)),
                     InActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -50,7 +50,7 @@ namespace Plutus.Infrastructure.Migrations
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     TransactionType = table.Column<int>(type: "integer", nullable: false),
                     LastModifiedUtc = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2021, 5, 9, 10, 11, 21, 84, DateTimeKind.Utc).AddTicks(1561)),
+                    CreatedOnUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2021, 8, 11, 18, 23, 27, 89, DateTimeKind.Utc).AddTicks(5838)),
                     InActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -75,12 +75,14 @@ namespace Plutus.Infrastructure.Migrations
                 columns: new[] { "Id", "Name", "TransactionType" },
                 values: new object[,]
                 {
-                    { new Guid("e1476226-a820-41b1-b34b-ef10858dcdf2"), "Food & Drinks", 0 },
-                    { new Guid("2b4a499d-f099-4609-b217-dab164ae1759"), "Travel", 0 },
-                    { new Guid("780546af-ee40-4513-b2b8-b9f43f2b7aec"), "Transfer", 0 },
-                    { new Guid("50ad9a4e-8eb0-4e34-9e4f-21433e671558"), "Bills", 0 },
-                    { new Guid("8b4d2ee1-9cdf-4760-b0f9-7e5a543a3f97"), "Salary", 1 },
-                    { new Guid("6193fbce-a045-4ad6-8cf0-d11a0ea8cb7d"), "Transfer", 1 }
+                    { new Guid("5952fff4-c241-4c87-8eab-47625893e08a"), "Food & Drinks", 0 },
+                    { new Guid("1bb370fa-5f84-4919-95bd-f6b422d04e53"), "Online Shopping", 0 },
+                    { new Guid("01322ab5-be70-4691-a48c-d614d173ce4a"), "Travel", 0 },
+                    { new Guid("f3407e98-9a7c-4576-8926-308d309f11f9"), "Transfer", 0 },
+                    { new Guid("03577014-5d5a-4736-8c28-c2966532c9f5"), "Bills", 0 },
+                    { new Guid("3bd27765-d5b2-4534-ba73-daa8bbfceb8a"), "Salary", 1 },
+                    { new Guid("3163b824-cae4-4953-988b-27c98f3ab585"), "Transfer", 1 },
+                    { new Guid("7bbb3fe2-4948-4b60-a02e-5ecc75cd5fa6"), "Gifts", 1 }
                 });
 
             migrationBuilder.InsertData(

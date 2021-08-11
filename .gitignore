@@ -9,3 +9,5 @@ riderModule.iml
 /.minikube/**
 logs/
 TestResults/
+.vs
+.vs/*

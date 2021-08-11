@@ -1,33 +1,30 @@
 using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
-namespace Plutus.Api.Middleware
+namespace Plutus.Api.Middleware;
+
+public class CheckIfUsernameInTokenIsSameAsRequestUsername
 {
-    public class CheckIfUsernameInTokenIsSameAsRequestUsername
+    private readonly RequestDelegate _next;
+
+    public CheckIfUsernameInTokenIsSameAsRequestUsername(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public CheckIfUsernameInTokenIsSameAsRequestUsername(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        if (context.Request.RouteValues.ContainsKey("Username"))
         {
-            _next = next;
-        }
+            var username = context.Request.RouteValues["Username"]?.ToString();
+            var tokenNameIdentifier = context.User.Identity?.Name;
 
-        public async Task Invoke(HttpContext context)
-        {
-            if (context.Request.RouteValues.ContainsKey("Username"))
+            if (username != tokenNameIdentifier)
             {
-                var username = context.Request.RouteValues["Username"]?.ToString();
-                var tokenNameIdentifier = context.User.Identity?.Name;
-
-                if (username != tokenNameIdentifier)
-                {
-                    context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-                    await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new
-                        {Message = $"Token is not generated for {username}"}));
-                }
+                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new
+                { Message = $"Token is not generated for {username}" }));
             }
-            await _next(context);
         }
+        await _next(context);
     }
 }
