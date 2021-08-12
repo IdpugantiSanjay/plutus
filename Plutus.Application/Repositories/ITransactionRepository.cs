@@ -14,7 +14,7 @@ namespace Plutus.Application.Repositories
 
         public Transaction Update(Transaction transaction);
 
-        public Task<Transaction> FindByIdAsync(Guid id);
+        public Task<Transaction?> FindByIdAsync(Guid id);
         
         public Task SaveChangesAsync();
     }

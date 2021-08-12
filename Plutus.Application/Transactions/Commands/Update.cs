@@ -5,6 +5,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Plutus.Application.Exceptions;
 using Plutus.Application.Repositories;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
@@ -15,11 +16,11 @@ namespace Plutus.Application.Transactions.Commands
     public static class UpdateTransaction
     {
         public record Request(Guid Id, decimal Amount, DateTime DateTime,
-            string Description, Guid CategoryId, [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
+            string Description, Guid CategoryId, [FromRoute] string Username, TransactionType TransactionType) : IRequest<(AbstractPlutusException?, Response?)>;
 
         public record Response(Guid Id);
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, (AbstractPlutusException?, Response?)>
         {
             private readonly ITransactionRepository _transactionRepository;
             private readonly IMapper _mapper;
@@ -30,9 +31,8 @@ namespace Plutus.Application.Transactions.Commands
                 _mapper = mapper;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<(AbstractPlutusException?, Response?)> Handle(Request request, CancellationToken cancellationToken)
             {
-                
                 Transaction updatedTransaction = new(
                     request.Id,
                     request.TransactionType,
@@ -43,14 +43,15 @@ namespace Plutus.Application.Transactions.Commands
                 );
 
                 var transactionInDb = await _transactionRepository.FindByIdAsync(request.Id);
+
                 if (transactionInDb is null)
-                    throw new ArgumentException($"Invalid Transaction Id: {request.Id}");
+                    return (new TransactionNotFoundException(), null);
 
                 transactionInDb.Update(updatedTransaction);
                 _transactionRepository.Update(transactionInDb);
                 await _transactionRepository.SaveChangesAsync();
 
-                return _mapper.Map<Response>(transactionInDb);
+                return (null, _mapper.Map<Response>(transactionInDb));
             }
         }
         

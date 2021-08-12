@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Plutus.Application.Exceptions;
 using Plutus.Application.Repositories;
 using Plutus.Application.Transactions.Indexes;
 using Plutus.Domain;

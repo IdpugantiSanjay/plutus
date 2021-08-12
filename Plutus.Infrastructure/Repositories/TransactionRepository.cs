@@ -75,8 +75,8 @@ public class TransactionRepository : ITransactionRepository
 
     public Transaction Update(Transaction transaction) => _context.Transactions.Update(transaction).Entity;
 
-    public async Task<Transaction> FindByIdAsync(Guid id) =>
-        await _context.Transactions.SingleAsync(t => t.Id == id);
+    public async Task<Transaction?> FindByIdAsync(Guid id) =>
+        await _context.Transactions.FirstOrDefaultAsync(t => t.Id == id);
 
     public Task SaveChangesAsync() => _context.SaveChangesAsync();
 }
