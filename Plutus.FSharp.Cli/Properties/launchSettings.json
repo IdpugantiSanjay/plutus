@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Plutus.FSharp.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "-a 10 -d \"2020-08-14\" -c \"Food & Drinks\""
+    }
+  }
+}

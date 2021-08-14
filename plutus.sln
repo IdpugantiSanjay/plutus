@@ -1,39 +1,34 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31606.5
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E8390651-1FF3-4EA2-B427-FF30238B9F58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Infrastructure", "Plutus.Infrastructure\Plutus.Infrastructure.csproj", "{3DCCB300-156B-4293-82A7-9B371A7DC847}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Infrastructure", "Plutus.Infrastructure\Plutus.Infrastructure.csproj", "{3DCCB300-156B-4293-82A7-9B371A7DC847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Application", "Plutus.Application\Plutus.Application.csproj", "{0FE5BF4C-8AF7-49C1-9F82-97155752B873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Application", "Plutus.Application\Plutus.Application.csproj", "{0FE5BF4C-8AF7-49C1-9F82-97155752B873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Domain", "Plutus.Domain\Plutus.Domain.csproj", "{FA1F76F7-E979-4500-95FD-9935B4C6C796}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Domain", "Plutus.Domain\Plutus.Domain.csproj", "{FA1F76F7-E979-4500-95FD-9935B4C6C796}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Api", "Plutus.Api\Plutus.Api.csproj", "{E6FC083E-7120-40A3-A817-DAC6B006D43B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Api", "Plutus.Api\Plutus.Api.csproj", "{E6FC083E-7120-40A3-A817-DAC6B006D43B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Domain.UnitTests", "Plutus.Domain.UnitTests\Plutus.Domain.UnitTests.csproj", "{1982BED5-C9FB-4942-9AF1-962B0996E15E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Domain.UnitTests", "Plutus.Domain.UnitTests\Plutus.Domain.UnitTests.csproj", "{1982BED5-C9FB-4942-9AF1-962B0996E15E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Application.UnitTests", "Plutus.Application.UnitTests\Plutus.Application.UnitTests.csproj", "{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Application.UnitTests", "Plutus.Application.UnitTests\Plutus.Application.UnitTests.csproj", "{811B8AFB-281E-4F51-AFD9-B60503CF0CA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Api.IntegrationTests", "Plutus.Api.IntegrationTests\Plutus.Api.IntegrationTests.csproj", "{44F3743E-9C8A-4CE4-A310-EA627A069CC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plutus.Api.IntegrationTests", "Plutus.Api.IntegrationTests\Plutus.Api.IntegrationTests.csproj", "{44F3743E-9C8A-4CE4-A310-EA627A069CC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plutus.Cli", "Plutus.Cli\Plutus.Cli.csproj", "{96DA6026-6319-43A8-AC10-2B622A83FE3B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Plutus.FSharp.Cli", "Plutus.FSharp.Cli\Plutus.FSharp.Cli.fsproj", "{F3676DAA-5043-4B82-BEE4-D86F1148827E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{3DCCB300-156B-4293-82A7-9B371A7DC847} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
-		{0FE5BF4C-8AF7-49C1-9F82-97155752B873} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
-		{FA1F76F7-E979-4500-95FD-9935B4C6C796} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
-		{E6FC083E-7120-40A3-A817-DAC6B006D43B} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
-		{1982BED5-C9FB-4942-9AF1-962B0996E15E} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
-		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
-		{44F3743E-9C8A-4CE4-A310-EA627A069CC6} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
-		{96DA6026-6319-43A8-AC10-2B622A83FE3B} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3DCCB300-156B-4293-82A7-9B371A7DC847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +63,26 @@ Global
 		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96DA6026-6319-43A8-AC10-2B622A83FE3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3676DAA-5043-4B82-BEE4-D86F1148827E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3676DAA-5043-4B82-BEE4-D86F1148827E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3676DAA-5043-4B82-BEE4-D86F1148827E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3676DAA-5043-4B82-BEE4-D86F1148827E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DCCB300-156B-4293-82A7-9B371A7DC847} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{0FE5BF4C-8AF7-49C1-9F82-97155752B873} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{FA1F76F7-E979-4500-95FD-9935B4C6C796} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{E6FC083E-7120-40A3-A817-DAC6B006D43B} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{1982BED5-C9FB-4942-9AF1-962B0996E15E} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
+		{811B8AFB-281E-4F51-AFD9-B60503CF0CA4} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
+		{44F3743E-9C8A-4CE4-A310-EA627A069CC6} = {A510B615-6C8C-4F93-8FE5-DB2BE570DB9C}
+		{96DA6026-6319-43A8-AC10-2B622A83FE3B} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+		{F3676DAA-5043-4B82-BEE4-D86F1148827E} = {E8390651-1FF3-4EA2-B427-FF30238B9F58}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {105C897B-17F2-4658-AB82-179573A8D6AA}
 	EndGlobalSection
 EndGlobal

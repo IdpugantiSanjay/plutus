@@ -1,9 +1,9 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0.0-preview.7-bullseye-slim-amd64 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0.100-rc.1-bullseye-slim-amd64 AS build
 WORKDIR /src
 COPY ["Plutus.Api/Plutus.Api.csproj", "Plutus.Api/"]
 RUN dotnet restore "Plutus.Api/Plutus.Api.csproj"
