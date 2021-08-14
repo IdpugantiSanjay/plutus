@@ -7,22 +7,22 @@ services:
 #    ports:
 #      - 80:80
 #
-#  plutus.restapi:
-#    container_name: plutus-api
-#    image: "${DOCKER_REGISTRY-}plutusapi:latest"
-#    build:
-#      context: .
-#      dockerfile: Plutus.Api/Dockerfile
-#    depends_on:
-#      database-server:
-#        condition: service_healthy
-#    environment:
-#      - PGPASSWORD=${PG_PASSWORD}
-#      - PGUSER=${PG_USER}
-#      - PGDATABASE=${PG_DATABASE}
-#      - PGHOST=${PG_HOST}
-#    ports:
-#      - 5000:80
+  plutus.restapi:
+    container_name: plutus-api
+    image: "${DOCKER_REGISTRY-}plutusapi:latest"
+    build:
+      context: .
+      dockerfile: Plutus.Api/Dockerfile
+    depends_on:
+      database-server:
+        condition: service_healthy
+    environment:
+      - PGPASSWORD=${PG_PASSWORD}
+      - PGUSER=${PG_USER}
+      - PGDATABASE=${PG_DATABASE}
+      - PGHOST=${PG_HOST}
+    ports:
+      - 5000:80
 
   database-server:
     image: postgres:13
