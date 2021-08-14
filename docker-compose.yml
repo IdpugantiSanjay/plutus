@@ -9,10 +9,10 @@ services:
 #
   plutus.restapi:
     container_name: plutus-api
-    image: "${DOCKER_REGISTRY-}plutusapi:latest"
-    build:
-      context: .
-      dockerfile: Plutus.Api/Dockerfile
+    image: isanjay112/plutus:latest
+    # build:
+    #   context: .
+    #   dockerfile: Plutus.Api/Dockerfile
     depends_on:
       database-server:
         condition: service_healthy
@@ -47,6 +47,8 @@ services:
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
