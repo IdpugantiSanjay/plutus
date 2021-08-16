@@ -9,6 +9,6 @@ namespace Plutus.Application.Repositories
     {
         public Task<List<Category>> FindAsync();
 
-        public Task<Category> FindByIdAsync(Guid id);
+        public Task<Category?> FindByIdAsync(Guid id);
     }
 }

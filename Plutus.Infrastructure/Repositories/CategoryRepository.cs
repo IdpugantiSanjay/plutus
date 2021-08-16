@@ -20,5 +20,13 @@ public class CategoryRepository : ICategoryRepository
 
     public Task<List<Category>> FindAsync() => _context.Categories.ToListAsync();
 
-    public Task<Category> FindByIdAsync(Guid id) => _context.Categories.FirstAsync(c => c.Id == id);
+    private Dictionary<Guid, Category> categoryCache = new(10);
+
+    public async Task<Category?> FindByIdAsync(Guid id)
+    {
+        if (categoryCache.ContainsKey(id)) return categoryCache[id];
+        var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        if (category is not null) categoryCache.TryAdd(id, category);
+        return category;
+    }
 }

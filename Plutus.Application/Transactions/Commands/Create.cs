@@ -53,7 +53,7 @@ public static class CreateTransaction
             {
                 var response = _mapper.Map<Response>(addedTransaction);
 
-                await _trxIndex.IndexAsync(new TransactionIndex.Transaction(addedTransaction.Id, addedTransaction.Username,
+                await _trxIndex.IndexAsync(new TransactionIndex.Index(addedTransaction.Id, addedTransaction.Username,
                     addedTransaction.Category.Name, addedTransaction.DateTime, addedTransaction.Amount,
                     addedTransaction?.Description ?? "", addedTransaction!.TransactionType == TransactionType.Income), cancellationToken);
 

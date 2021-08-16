@@ -4,7 +4,7 @@ using Nest;
 using Microsoft.Extensions.DependencyInjection;
 using Plutus.ElasticSearch.Infrastructure.Models;
 
-using Trx = Plutus.Application.Transactions.Indexes.TransactionIndex.Transaction;
+using Trx = Plutus.Application.Transactions.Indexes.TransactionIndex.Index;
 
 namespace Plutus.ElasticSearch.Infrastructure
 {

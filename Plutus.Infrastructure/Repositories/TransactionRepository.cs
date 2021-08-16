@@ -26,7 +26,7 @@ public class TransactionRepository : ITransactionRepository
             .Where(t => !t.InActive)
             .Where(FilterByDate(request))
             .Where(FilterByDescription(request))
-            .Where(FilterByCategory(request))
+            //.Where(FilterByCategory(request))
             .Include(t => t.Category)
             .ToListAsync();
 
@@ -38,12 +38,12 @@ public class TransactionRepository : ITransactionRepository
         return t => t.Username == request.Username;
     }
 
-    private static Expression<Func<Transaction, bool>> FilterByCategory(FindTransactions.Request request)
-    {
-        if (request.CategoryId != default)
-            return t => t.CategoryId == request.CategoryId && t.TransactionType == request.TransactionType;
-        return t => true;
-    }
+    //private static Expression<Func<Transaction, bool>> FilterByCategory(FindTransactions.Request request)
+    //{
+    //    if (request.CategoryId != default)
+    //        return t => t.CategoryId == request.CategoryId && t.TransactionType == request.TransactionType;
+    //    return t => true;
+    //}
 
     private static Expression<Func<Transaction, bool>> FilterByDescription(FindTransactions.Request request)
     {

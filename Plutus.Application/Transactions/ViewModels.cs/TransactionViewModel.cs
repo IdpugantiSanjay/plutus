@@ -11,7 +11,7 @@ namespace Plutus.Application.Transactions.ViewModels.cs
         public string Username { get; init; }
         public DateTime DateTime { get; init; }
 
-        public CategoryViewModel Category { get; init; }
+        public string Category { get; init; }
 
         public decimal Amount { get; set; }
         
