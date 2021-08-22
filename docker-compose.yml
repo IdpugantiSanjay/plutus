@@ -7,6 +7,19 @@ services:
 #    ports:
 #      - 80:80
 #
+
+  # plutus.cli:
+  #   container_name: plutus-cli
+  #   build:
+  #     context: .
+  #     dockerfile: Plutus.Cli/Dockerfile
+  #   # depends_on: 
+  #   #   plutus.restapi
+  #   environment:
+  #     PLUTUS_SERVER_URL: ${PLUTUS_SERVER_URL}
+  #     PLUTUS_AUTH_TOKEN: ${PLUTUS_AUTH_TOKEN}
+
+
   plutus.restapi:
     container_name: plutus-api
     # image: isanjay112/plutus:latest

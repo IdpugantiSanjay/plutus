@@ -1,18 +1,10 @@
-using System;
-using System.Linq;
 using System.Security.Authentication;
 using System.Text;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Nest;
@@ -68,7 +60,6 @@ namespace Plutus.Api
         {
             string ELASTIC_HOST = Environment.GetEnvironmentVariable("ELASTIC_HOST")!;
 
-            Console.WriteLine(ELASTIC_HOST);
             services.AddElasticSearch(new ConnectionSettings(new Uri(ELASTIC_HOST)));
             
             services.AddCors(o =>

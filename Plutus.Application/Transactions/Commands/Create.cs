@@ -38,7 +38,7 @@ public static class CreateTransaction
         {
             Transaction transaction = new(
                 Guid.NewGuid(),
-                TransactionType.Expense,
+                request.TransactionType,
                 request.Username,
                 request.Amount,
                 request.DateTime,
@@ -49,7 +49,7 @@ public static class CreateTransaction
 
             var addedTransaction = await _repository.AddAsync(transaction);
 
-            if (addedTransaction != null)
+            if (addedTransaction is not null)
             {
                 var response = _mapper.Map<Response>(addedTransaction);
 

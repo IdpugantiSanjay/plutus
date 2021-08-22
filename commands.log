@@ -1,0 +1,8 @@
+plutus add -a 824.82 -d 2021-08-17 -c c323143a-c288-442f-8b7a-58065588e6e1
+plutus add -a 399 -d 2021-08-14 -c c323143a-c288-442f-8b7a-58065588e6e1 --description Disney + Hotstar 1Year Subscription
+plutus add -a 610 -d 2021-08-13 -c 7ae15088-adbe-4666-b8a2-c808006999eb --description Zomato Order
+
+plutus add -a 10000 -d 2021-08-04 -c "e39652e2-b8cf-4f1c-b31a-20b0a564b31e" --description "Harish Gave 10,000 of 20,000" --credit
+plutus add -a 615 -d 2021-08-07 -c "e39652e2-b8cf-4f1c-b31a-20b0a564b31e" --description "Hari Kumar gave 615 that he owes me" --credit
+plutus add -a 16000 -d 2021-08-05 -c "adb40027-8122-481c-ba6b-b3c3df9377c3" --description "Paid 16000 to Sunitha as part of Chit Money"
+plutus add -a 10000 -d 2021-08-05 -c "adb40027-8122-481c-ba6b-b3c3df9377c3" --description "Gave 10K to Harish again for his trip"

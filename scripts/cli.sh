@@ -1,0 +1,1 @@
+docker run --network host --name plutus_cli --env-file .env  --rm -it --entrypoint bash $1
