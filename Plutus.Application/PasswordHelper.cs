@@ -9,7 +9,7 @@ namespace Plutus.Application
         public string GeneratePasswordHash(string password, string username)
         {
             byte[] saltedPassword = StrToBytes(password).Concat(StrToBytes(username)).ToArray();
-            return Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(saltedPassword));
+            return Encoding.UTF8.GetString(SHA256.Create().ComputeHash(saltedPassword));
 
             static byte[] StrToBytes(string str) => Encoding.UTF8.GetBytes(str);
         }

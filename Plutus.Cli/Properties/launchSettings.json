@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Plutus.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "add -a 684.4 -d \"2021-08-18\" -c \"7ae15088-adbe-4666-b8a2-c808006999eb\" --description \"Zomato\"",
+      "environmentVariables": {
+        "PLUTUS_SERVER_URL": "http://localhost:5000",
+        "PLUTUS_AUTH_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InNhbmpheSIsInVuaXF1ZV9uYW1lIjoic2FuamF5IiwiZXhwIjoxNjI5NjE5MjYzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQyMDAifQ.st8LEgYkRojUJ4cuiiAcR_kzD1bXgMUdSF7b4cRsIjM"
+      }
+    }
+  }
+}

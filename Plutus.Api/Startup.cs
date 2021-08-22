@@ -66,7 +66,10 @@ namespace Plutus.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddElasticSearch(new ConnectionSettings(new Uri(Configuration["Elastic:ServerUrl"])));
+            string ELASTIC_HOST = Environment.GetEnvironmentVariable("ELASTIC_HOST")!;
+
+            Console.WriteLine(ELASTIC_HOST);
+            services.AddElasticSearch(new ConnectionSettings(new Uri(ELASTIC_HOST)));
             
             services.AddCors(o =>
             {

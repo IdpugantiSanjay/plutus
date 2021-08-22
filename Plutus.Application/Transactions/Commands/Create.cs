@@ -12,7 +12,7 @@ using Plutus.Domain.ValueObjects;
 namespace Plutus.Application.Transactions.Commands;
 public static class CreateTransaction
 {
-    public record Request(decimal Amount, DateTime DateTime, string Description, Guid CategoryId,
+    public record Request(decimal Amount, DateTime DateTime, string? Description, Guid CategoryId,
         [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
 
     public class Response

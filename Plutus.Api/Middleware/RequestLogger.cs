@@ -20,22 +20,40 @@ public class RequestLogger
     public async Task Invoke(HttpContext context)
     {
         var stopwatch = Stopwatch.StartNew();
-        await _next(context);
-        stopwatch.Stop();
 
-        const string TEMPLATE = @"
+        try
+        {
+            await _next(context);
+        }
+        catch(Exception e)
+        {
+            _logger.LogError(e, "Error Inside Request Logger " + e.Message);
+            LogRequestExecutionTime(context, stopwatch);
+            throw;
+        }
+        finally
+        {
+            LogRequestExecutionTime(context, stopwatch);
+        }
+
+        void LogRequestExecutionTime(HttpContext context, Stopwatch stopwatch)
+        {
+            stopwatch.Stop();
+
+            const string TEMPLATE = @"
             [{@ApplicationName}-{@EnvironmentName}] - {@CurrentDateTime} |  {@StatusCode}  |  {@ElapsedTime} ms | {@Method} {@Url}
         ";
 
-        _logger.LogInformation(
-            TEMPLATE,
-            _hostEnvironment.ApplicationName,
-            _hostEnvironment.EnvironmentName,
-            DateTime.Now.ToString("t"),
-            context.Response.StatusCode,
-            stopwatch.ElapsedMilliseconds.ToString().PadLeft(10, ' '),
-            context.Request.Method.PadRight(16, ' '),
-            context.Request.GetDisplayUrl()
-         );
+            _logger.LogInformation(
+                TEMPLATE,
+                _hostEnvironment.ApplicationName,
+                _hostEnvironment.EnvironmentName,
+                DateTime.Now.ToString("t"),
+                context.Response.StatusCode,
+                stopwatch.ElapsedMilliseconds.ToString().PadLeft(10, ' '),
+                context.Request.Method.PadRight(16, ' '),
+                context.Request.GetDisplayUrl()
+             );
+        }
     }
 }

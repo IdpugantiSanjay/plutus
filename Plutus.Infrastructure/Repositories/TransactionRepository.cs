@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ public class TransactionRepository : ITransactionRepository
     private static Expression<Func<Transaction, bool>> FilterByDescription(FindTransactions.Request request)
     {
         if (request.Description is { Length: > 0 } description)
-            return t => EF.Functions.Like(t.Description, $"%{description}%");
+            return (t) => EF.Functions.Like(t.Description, $"%{description}%");
         return t => true;
     }
 

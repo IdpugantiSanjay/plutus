@@ -11,11 +11,11 @@ namespace Plutus.Infrastructure
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; init; }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; init; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; init; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {

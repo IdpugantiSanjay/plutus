@@ -33,7 +33,7 @@ namespace Plutus.Application.Transactions.Commands
             {
                 var transactionToDelete = await _repository.FindByIdAsync(request.Id);
 
-                if (transactionToDelete.InActive || transactionToDelete is null) return (new TransactionNotFoundException(), null);
+                if (transactionToDelete is null || transactionToDelete.InActive) return (new TransactionNotFoundException(), null);
 
                 transactionToDelete.MakeInActive();
                 _repository.Update(transactionToDelete);

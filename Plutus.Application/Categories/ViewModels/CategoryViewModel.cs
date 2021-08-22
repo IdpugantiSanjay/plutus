@@ -5,8 +5,8 @@ namespace Plutus.Application.Categories.ViewModels
 {
     public class CategoryViewModel
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public TransactionType TransactionType { get; set; }
+        public Guid Id { get; init; }
+        public string Name { get; init; }
+        public TransactionType TransactionType { get; init; }
     }
 }
