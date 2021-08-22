@@ -18,6 +18,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        EnsureEnvironmentVariablesAreSet();
+
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
         Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration)
@@ -38,4 +40,12 @@ public class Program
         Host.CreateDefaultBuilder(args)
             .UseSerilog()
             .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+
+    public static void EnsureEnvironmentVariablesAreSet()
+    {
+        var envVariables = new[] { "ASPNETCORE_ENVIRONMENT", "ELASTIC_HOST", "PGPASSWORD", "PGUSER", "PGDATABASE", "PGHOST" };
+
+        foreach (var envVariable in envVariables)
+            if (envVariable is not { Length: > 0 }) throw new InvalidOperationException($"{envVariable} environment variable not set");
+    }
 }
