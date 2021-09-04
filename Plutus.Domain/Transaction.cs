@@ -25,7 +25,7 @@ namespace Plutus.Domain
             
         }
         
-        public Transaction(Guid id, TransactionType type, Username username, Amount amount, TransactionDateTime dateTime, Guid categoryId, TransactionDescription? description = null)
+        public Transaction(Guid id, TransactionType type, Username username, Amount amount, TransactionDateTime dateTime, Guid categoryId, TransactionDescription? description)
         {
             Id = id;
             TransactionType = type;

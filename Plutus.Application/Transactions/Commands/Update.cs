@@ -39,7 +39,8 @@ namespace Plutus.Application.Transactions.Commands
                     request.Username,
                     request.Amount,
                     request.DateTime,
-                    request.CategoryId
+                    request.CategoryId,
+                    request.Description
                 );
 
                 var transactionInDb = await _transactionRepository.FindByIdAsync(request.Id);

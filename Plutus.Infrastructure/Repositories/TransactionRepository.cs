@@ -25,9 +25,9 @@ public class TransactionRepository : ITransactionRepository
         var transactions = _context
             .Transactions
             .Where(t => !t.InActive)
+            .Where(FilterByUsername(request))
             .Where(FilterByDate(request))
             .Where(FilterByDescription(request))
-            //.Where(FilterByCategory(request))
             .Include(t => t.Category)
             .ToListAsync();
 

@@ -11,8 +11,8 @@ using Nest;
 using Plutus.Api.Middleware;
 using Plutus.Application.Repositories;
 using Plutus.Application.Transactions.Commands;
-using Plutus.Application.Transactions.Indexes;
-using Plutus.ElasticSearch.Infrastructure;
+//using Plutus.Application.Transactions.Indexes;
+//using Plutus.ElasticSearch.Infrastructure;
 using Plutus.Infrastructure;
 using Plutus.Infrastructure.Repositories;
 using Serilog;
@@ -58,10 +58,11 @@ namespace Plutus.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string ELASTIC_HOST = Environment.GetEnvironmentVariable("ELASTIC_HOST")!;
+            services.AddHttpLogging(l =>
+            {
+                l.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All;
+            });
 
-            services.AddElasticSearch(new ConnectionSettings(new Uri(ELASTIC_HOST)));
-            
             services.AddCors(o =>
             {
                 o.AddPolicy(name: OriginPolicy,
@@ -93,20 +94,19 @@ namespace Plutus.Api
             services.AddDbContext<AppDbContext>(options =>
             {
                 var connectionString = BuildConnectionString(Configuration);
-                // Log.Information($"The formed connection string is {connectionString}");
                 options.UseNpgsql(connectionString);
             });
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<TransactionIndex>();
+            //services.AddTransient<TransactionIndex>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSerilogRequestLogging();
+            app.UseHttpLogging();
 
             app.UseMiddleware<RequestLogger>();
             
@@ -141,21 +141,23 @@ namespace Plutus.Api
 
         private static string BuildConnectionString(IConfiguration configuration)
         {
-            var host = Environment.GetEnvironmentVariable("PGHOST");
-            var database = Environment.GetEnvironmentVariable("PGDATABASE");
-            var user = Environment.GetEnvironmentVariable("PGUSER");
-            var password = Environment.GetEnvironmentVariable("PGPASSWORD");
+            return Environment.GetEnvironmentVariable("PG_Connection")!;
 
-            var credentialsInvalid = new[] {host, database, user, password}.Any(string.IsNullOrEmpty);
+            //var host = Environment.GetEnvironmentVariable("PGHOST");
+            //var database = Environment.GetEnvironmentVariable("PGDATABASE");
+            //var user = Environment.GetEnvironmentVariable("PGUSER");
+            //var password = Environment.GetEnvironmentVariable("PGPASSWORD");
 
-            return credentialsInvalid switch
-            {
-                false =>
-                    $"Host={host};Database={database};Username={user};Password={password};Include Error Detail=true",
-                _ when configuration.GetConnectionString("Database") is not null => configuration.GetConnectionString(
-                    "Database"),
-                _ => throw new InvalidCredentialException("Invalid Postgres Credentials")
-            };
+            //var credentialsInvalid = new[] {host, database, user, password}.Any(string.IsNullOrEmpty);
+
+            //return credentialsInvalid switch
+            //{
+            //    false =>
+            //        $"Host={host};Database={database};Username={user};Password={password};Include Error Detail=true",
+            //    _ when configuration.GetConnectionString("Database") is not null => configuration.GetConnectionString(
+            //        "Database"),
+            //    _ => throw new InvalidCredentialException("Invalid Postgres Credentials")
+            //};
         }
     }
 }

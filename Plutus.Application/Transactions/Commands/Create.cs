@@ -4,16 +4,28 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Exceptions;
 using Plutus.Application.Repositories;
-using Plutus.Application.Transactions.Indexes;
+//using Plutus.Application.Transactions.Indexes;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
 using Plutus.Domain.ValueObjects;
+using RabbitMQ.Client;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Plutus.Application.Transactions.Commands;
+
+
+
+
+
 public static class CreateTransaction
 {
     public record Request(decimal Amount, DateTime DateTime, string? Description, Guid CategoryId,
         [FromRoute] string Username, TransactionType TransactionType) : IRequest<Response>;
+
+    public record Event(
+        Guid Id, decimal Amount, DateTime DateTime, string? Description, string Username, bool IsCredit, string Category
+    );
 
     public class Response
     {
@@ -24,13 +36,13 @@ public static class CreateTransaction
     {
         private readonly ITransactionRepository _repository;
         private readonly IMapper _mapper;
-        private readonly TransactionIndex _trxIndex;
+        //private readonly TransactionIndex _trxIndex;
 
-        public Handler(ITransactionRepository repository, IMapper mapper, TransactionIndex trxIndex)
+        public Handler(ITransactionRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _trxIndex = trxIndex;
+            //_trxIndex = trxIndex;
         }
 
         public async Task<Response> Handle(Request request,
@@ -53,9 +65,35 @@ public static class CreateTransaction
             {
                 var response = _mapper.Map<Response>(addedTransaction);
 
-                await _trxIndex.IndexAsync(new TransactionIndex.Index(addedTransaction.Id, addedTransaction.Username,
-                    addedTransaction.Category.Name, addedTransaction.DateTime, addedTransaction.Amount,
-                    addedTransaction?.Description ?? "", addedTransaction!.TransactionType == TransactionType.Income), cancellationToken);
+
+                var factory = new ConnectionFactory() { };
+                factory.UserName = "guest";
+                factory.Password = "guest";
+                factory.VirtualHost = "/";
+                factory.HostName = "localhost";
+
+
+                using var connection = factory.CreateConnection();
+                using var channel = connection.CreateModel();
+
+                channel.ExchangeDeclare("transactionsExchange", ExchangeType.Fanout);
+                channel.QueueDeclare(queue: "transactions", durable: true, exclusive: false, autoDelete: false);
+                channel.QueueBind("transactions", "transactionsExchange", "transactionsExchangeKey");
+
+
+                var props = channel.CreateBasicProperties();
+                props.Headers = new Dictionary<string, object>
+                {
+                    { "TYPE", "TRANSACTION.CREATE" }
+                };
+
+                var _event = new Event(response.Id, request.Amount, request.DateTime, request.Description, request.Username, request.TransactionType == TransactionType.Income, addedTransaction.Category.Name);
+
+                channel.BasicPublish(new PublicationAddress(ExchangeType.Fanout, "transactionsExchange", "transactionsExchangeKey"), props, JsonSerializer.SerializeToUtf8Bytes(_event));
+
+                //await _trxIndex.IndexAsync(new TransactionIndex.Index(addedTransaction.Id, addedTransaction.Username,
+                //    addedTransaction.Category.Name, addedTransaction.DateTime, addedTransaction.Amount,
+                //    addedTransaction?.Description ?? "", addedTransaction!.TransactionType == TransactionType.Income), cancellationToken);
 
                 return response;
             }

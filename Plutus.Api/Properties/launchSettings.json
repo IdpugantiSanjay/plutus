@@ -14,7 +14,9 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RABBITMQ_HOST": "amqp:/guest:guest@localhost:5672",
+        "PG_Connection": "Host=localhost;Database=plutus;Username=sanjay;Password=sanjay_11;Include Error Detail=true"
       }
     },
     "Plutus.Api": {
@@ -23,10 +25,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "PGHOST": "localhost",
-        "PGPASSWORD": "sanjay_11",
-        "PGDATABASE": "plutus",
-        "PGUSER": "sanjay"
+        "RABBITMQ_HOST": "amqp:/guest:guest@localhost:5672",
+        "PG_Connection": "Host=localhost;Database=plutus;Username=sanjay;Password=sanjay_11;Include Error Detail=true"
       },
       "applicationUrl": "http://localhost:5000",
       "dotnetRunMessages": "true"

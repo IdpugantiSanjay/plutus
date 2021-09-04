@@ -12,6 +12,8 @@ public static class HostExtensions
     {
         using var scope = host.Services.CreateScope();
         var context = scope.ServiceProvider.GetService<AppDbContext>();
+
+        
         try
         {
             lock (MigrationLock)

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plutus-api
+spec:
+  selector:
+    matchLabels:
+      app: plutus-api
+  template:
+    metadata:
+      labels:
+        app: plutus-api
+    spec:
+      containers:
+        - name: plutus-api
+          image: isanjay112/plutus
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: plutus-secrets
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production

@@ -11,3 +11,4 @@ logs/
 TestResults/
 .vs
 .vs/*
+/k8s/secrets.yaml

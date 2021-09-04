@@ -1,7 +1,7 @@
 using AutoMapper;
 using Plutus.Application.Categories.ViewModels;
 using Plutus.Application.Transactions.Commands;
-using Plutus.Application.Transactions.Indexes;
+//using Plutus.Application.Transactions.Indexes;
 using Plutus.Application.Transactions.ViewModels.cs;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
@@ -30,10 +30,10 @@ namespace Plutus.Application.MappingProfiles
             CreateMap<Transaction, TransactionViewModel>().ForMember(dest => dest.DateTime, exp => exp.MapFrom(src =>  src.DateTime.Value));
             CreateMap<Category, CategoryViewModel>();
 
-            CreateMap<TransactionIndex.Index, TransactionViewModel>()
-                    //.ForPath(dest => dest.Category.Name, exp => exp.MapFrom(src => src.Category))
-                    .ForMember(dest => dest.TransactionType, exp => exp.ConvertUsing(new TransactionTypeConverter(), src => src.IsCredit));
-                    ;
+            //CreateMap<TransactionIndex.Index, TransactionViewModel>()
+            //        //.ForPath(dest => dest.Category.Name, exp => exp.MapFrom(src => src.Category))
+            //        .ForMember(dest => dest.TransactionType, exp => exp.ConvertUsing(new TransactionTypeConverter(), src => src.IsCredit));
+            //        ;
         }
     }
 }

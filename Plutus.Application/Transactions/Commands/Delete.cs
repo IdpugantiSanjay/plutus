@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Exceptions;
 using Plutus.Application.Repositories;
-using Plutus.Application.Transactions.Indexes;
+//using Plutus.Application.Transactions.Indexes;
 using Plutus.Domain.ValueObjects;
 
 namespace Plutus.Application.Transactions.Commands
@@ -21,12 +21,12 @@ namespace Plutus.Application.Transactions.Commands
         public class Handler : IRequestHandler<Request, (AbstractPlutusException? error, Response? response)>
         {
             private readonly ITransactionRepository _repository;
-            private readonly TransactionIndex _transactionIndex;
+            //private readonly TransactionIndex _transactionIndex;
 
-            public Handler(ITransactionRepository repository, TransactionIndex transactionIndex)
+            public Handler(ITransactionRepository repository)
             {
                 _repository = repository;
-                _transactionIndex = transactionIndex;
+                //_transactionIndex = transactionIndex;
             }
 
             public async Task<(AbstractPlutusException? error, Response? response)> Handle(Request request, CancellationToken cancellationToken)
@@ -39,7 +39,7 @@ namespace Plutus.Application.Transactions.Commands
                 _repository.Update(transactionToDelete);
                 await _repository.SaveChangesAsync();
                 
-                await _transactionIndex.DeleteAsync(request.Id.ToString(), cancellationToken);
+                //await _transactionIndex.DeleteAsync(request.Id.ToString(), cancellationToken);
                 return (null, new Response(request.Id));
             }
         }

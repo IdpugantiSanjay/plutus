@@ -6,7 +6,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Plutus.Application.Repositories;
-using Plutus.Application.Transactions.Indexes;
+//using Plutus.Application.Transactions.Indexes;
 using Plutus.Application.Transactions.ViewModels.cs;
 using Plutus.Domain;
 using Plutus.Domain.Enums;
@@ -22,18 +22,16 @@ public static class FindTransactions
     {
         private readonly IMapper _mapper;
         private readonly ITransactionRepository _repository;
-        private readonly TransactionIndex _trxIndex;
 
-        public Handler(IMapper mapper, ITransactionRepository repository, TransactionIndex trxIndex)
+        public Handler(IMapper mapper, ITransactionRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
-            _trxIndex = trxIndex;
         }
 
         public async Task<IEnumerable<TransactionViewModel>> Handle(Request request, CancellationToken cancellationToken)
         {
-            var transactions = await _trxIndex.FindAsync(request);
+            var transactions = await _repository.FindAsync(request);
             var vm = _mapper.Map<IEnumerable<TransactionViewModel>>(transactions);
             return vm;
         }
